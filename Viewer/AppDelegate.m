@@ -1,8 +1,8 @@
 //
 //  AppDelegate.m
-//  Viewer
+//  GraphicsAPITest
 //
-//  Created by Bryan Wong on 2/20/20.
+//  Created by Bryan Wong on 2/19/20.
 //  Copyright © 2020 Bryan Wong. All rights reserved.
 //
 
@@ -16,6 +16,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // Insert code here to initialize your application
+    
 }
 
 
