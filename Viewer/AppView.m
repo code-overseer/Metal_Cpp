@@ -74,10 +74,10 @@
     
     _renderer = [[Renderer alloc] initWithMetalKitView:_view];
     _view.delegate = _renderer;
-    
+
     
     _view.needsDisplay = true;
-    
+        
 }
 
 @end

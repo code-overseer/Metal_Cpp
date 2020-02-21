@@ -7,155 +7,171 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		521547452400599E009D036B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 521547432400599E009D036B /* main.m */; };
-		521547462400599E009D036B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 521547442400599E009D036B /* AppDelegate.m */; };
-		52154749240059C9009D036B /* AppView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52154748240059C9009D036B /* AppView.m */; };
-		5215474C24005A5B009D036B /* Renderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5215474B24005A5B009D036B /* Renderer.mm */; };
-		5215475124005ACD009D036B /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5215474E24005ACD009D036B /* MetalKit.framework */; };
-		5215475224005ACD009D036B /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5215474F24005ACD009D036B /* Metal.framework */; };
-		5215475324005ACD009D036B /* MetalPerformanceShaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5215475024005ACD009D036B /* MetalPerformanceShaders.framework */; };
-		5215475524005ADF009D036B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5215475424005ADF009D036B /* Cocoa.framework */; };
-		5215475824005B42009D036B /* hellotriangle.metal in Sources */ = {isa = PBXBuildFile; fileRef = 5215475724005B42009D036B /* hellotriangle.metal */; };
-		5215475C24005BB6009D036B /* AppWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 5215475B24005BB6009D036B /* AppWindow.m */; };
-		5215475F24005C3D009D036B /* Window.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5215475D24005C3D009D036B /* Window.xib */; };
-		5215476024005C3D009D036B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5215475E24005C3D009D036B /* MainMenu.xib */; };
+		520C3BDE23FF2C7400B634FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 520C3BDD23FF2C7400B634FB /* main.m */; };
+		520C3BE623FF2CDA00B634FB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 520C3BE523FF2CDA00B634FB /* Cocoa.framework */; };
+		520C3BF423FF41E800B634FB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 520C3BF323FF41E800B634FB /* AppDelegate.m */; };
+		5215472A23FFEFF0009D036B /* shader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 5215472923FFEFF0009D036B /* shader.metal */; };
+		5215472E23FFF017009D036B /* MetalPerformanceShaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5215472B23FFF017009D036B /* MetalPerformanceShaders.framework */; };
+		5215472F23FFF017009D036B /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5215472C23FFF017009D036B /* MetalKit.framework */; };
+		5215473023FFF017009D036B /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5215472D23FFF017009D036B /* Metal.framework */; };
+		521547362400431B009D036B /* AppView.m in Sources */ = {isa = PBXBuildFile; fileRef = 521547342400431B009D036B /* AppView.m */; };
+		521547392400436B009D036B /* Renderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 521547372400436B009D036B /* Renderer.mm */; };
+		5215474124005393009D036B /* AppWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 5215474024005393009D036B /* AppWindow.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		520C3BD823FF2C7400B634FB /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		520C3BB123FF0DAC00B634FB /* Viewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Viewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		520C3BC223FF0DAC00B634FB /* Viewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Viewer.entitlements; sourceTree = "<group>"; };
-		521547422400599E009D036B /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		521547432400599E009D036B /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		521547442400599E009D036B /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		52154747240059C9009D036B /* AppView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppView.h; sourceTree = "<group>"; };
-		52154748240059C9009D036B /* AppView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppView.m; sourceTree = "<group>"; };
-		5215474A24005A5B009D036B /* Renderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
-		5215474B24005A5B009D036B /* Renderer.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Renderer.mm; sourceTree = "<group>"; };
-		5215474E24005ACD009D036B /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
-		5215474F24005ACD009D036B /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
-		5215475024005ACD009D036B /* MetalPerformanceShaders.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalPerformanceShaders.framework; path = System/Library/Frameworks/MetalPerformanceShaders.framework; sourceTree = SDKROOT; };
-		5215475424005ADF009D036B /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		5215475724005B42009D036B /* hellotriangle.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = hellotriangle.metal; sourceTree = "<group>"; };
-		5215475A24005BB6009D036B /* AppWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppWindow.h; sourceTree = "<group>"; };
-		5215475B24005BB6009D036B /* AppWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppWindow.m; sourceTree = "<group>"; };
-		5215475D24005C3D009D036B /* Window.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Window.xib; sourceTree = "<group>"; };
-		5215475E24005C3D009D036B /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
+		520C3BDA23FF2C7400B634FB /* Viewer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Viewer; sourceTree = BUILT_PRODUCTS_DIR; };
+		520C3BDD23FF2C7400B634FB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		520C3BE523FF2CDA00B634FB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		520C3BF123FF397C00B634FB /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
+		520C3BF223FF41DA00B634FB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		520C3BF323FF41E800B634FB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		520C3BF523FF48E500B634FB /* Window.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Window.xib; sourceTree = "<group>"; };
+		5215472923FFEFF0009D036B /* shader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = shader.metal; sourceTree = "<group>"; };
+		5215472B23FFF017009D036B /* MetalPerformanceShaders.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalPerformanceShaders.framework; path = System/Library/Frameworks/MetalPerformanceShaders.framework; sourceTree = SDKROOT; };
+		5215472C23FFF017009D036B /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
+		5215472D23FFF017009D036B /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
+		521547312400431B009D036B /* AppView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppView.h; sourceTree = "<group>"; };
+		521547342400431B009D036B /* AppView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppView.m; sourceTree = "<group>"; };
+		521547372400436B009D036B /* Renderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Renderer.mm; sourceTree = "<group>"; };
+		521547382400436B009D036B /* Renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
+		5215473F24005393009D036B /* AppWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppWindow.h; sourceTree = "<group>"; };
+		5215474024005393009D036B /* AppWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppWindow.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		520C3BAE23FF0DAC00B634FB /* Frameworks */ = {
+		520C3BD723FF2C7400B634FB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5215475524005ADF009D036B /* Cocoa.framework in Frameworks */,
-				5215475224005ACD009D036B /* Metal.framework in Frameworks */,
-				5215475324005ACD009D036B /* MetalPerformanceShaders.framework in Frameworks */,
-				5215475124005ACD009D036B /* MetalKit.framework in Frameworks */,
+				5215472F23FFF017009D036B /* MetalKit.framework in Frameworks */,
+				5215472E23FFF017009D036B /* MetalPerformanceShaders.framework in Frameworks */,
+				5215473023FFF017009D036B /* Metal.framework in Frameworks */,
+				520C3BE623FF2CDA00B634FB /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		520C3BA823FF0DAC00B634FB = {
+		520C3BD123FF2C7400B634FB = {
 			isa = PBXGroup;
 			children = (
-				520C3BB323FF0DAC00B634FB /* Viewer */,
-				520C3BB223FF0DAC00B634FB /* Products */,
-				5215474D24005ACD009D036B /* Frameworks */,
+				520C3BDC23FF2C7400B634FB /* Viewer */,
+				520C3BDB23FF2C7400B634FB /* Products */,
+				520C3BE423FF2CDA00B634FB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
-		520C3BB223FF0DAC00B634FB /* Products */ = {
+		520C3BDB23FF2C7400B634FB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				520C3BB123FF0DAC00B634FB /* Viewer.app */,
+				520C3BDA23FF2C7400B634FB /* Viewer */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		520C3BB323FF0DAC00B634FB /* Viewer */ = {
+		520C3BDC23FF2C7400B634FB /* Viewer */ = {
 			isa = PBXGroup;
 			children = (
-				5215475924005B8A009D036B /* NIBs */,
-				521547432400599E009D036B /* main.m */,
-				521547422400599E009D036B /* AppDelegate.h */,
-				521547442400599E009D036B /* AppDelegate.m */,
-				5215474A24005A5B009D036B /* Renderer.h */,
-				5215474B24005A5B009D036B /* Renderer.mm */,
-				520C3BC223FF0DAC00B634FB /* Viewer.entitlements */,
-				52154747240059C9009D036B /* AppView.h */,
-				52154748240059C9009D036B /* AppView.m */,
-				5215475A24005BB6009D036B /* AppWindow.h */,
-				5215475B24005BB6009D036B /* AppWindow.m */,
-				5215475624005B31009D036B /* Metal */,
+				520C3BDD23FF2C7400B634FB /* main.m */,
+				521547382400436B009D036B /* Renderer.h */,
+				521547372400436B009D036B /* Renderer.mm */,
+				521547312400431B009D036B /* AppView.h */,
+				521547342400431B009D036B /* AppView.m */,
+				5215473F24005393009D036B /* AppWindow.h */,
+				5215474024005393009D036B /* AppWindow.m */,
+				5215473C24005094009D036B /* Delegates */,
+				5215472823FFEFE1009D036B /* Metal */,
+				520C3BF623FF491100B634FB /* NIBs */,
 			);
 			path = Viewer;
 			sourceTree = "<group>";
 		};
-		5215474D24005ACD009D036B /* Frameworks */ = {
+		520C3BE423FF2CDA00B634FB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5215475424005ADF009D036B /* Cocoa.framework */,
-				5215474F24005ACD009D036B /* Metal.framework */,
-				5215474E24005ACD009D036B /* MetalKit.framework */,
-				5215475024005ACD009D036B /* MetalPerformanceShaders.framework */,
+				5215472D23FFF017009D036B /* Metal.framework */,
+				5215472C23FFF017009D036B /* MetalKit.framework */,
+				5215472B23FFF017009D036B /* MetalPerformanceShaders.framework */,
+				520C3BE523FF2CDA00B634FB /* Cocoa.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		5215475624005B31009D036B /* Metal */ = {
+		520C3BF623FF491100B634FB /* NIBs */ = {
 			isa = PBXGroup;
 			children = (
-				5215475724005B42009D036B /* hellotriangle.metal */,
+				520C3BF523FF48E500B634FB /* Window.xib */,
+				520C3BF123FF397C00B634FB /* MainMenu.xib */,
+			);
+			name = NIBs;
+			sourceTree = "<group>";
+		};
+		5215472823FFEFE1009D036B /* Metal */ = {
+			isa = PBXGroup;
+			children = (
+				5215472923FFEFF0009D036B /* shader.metal */,
 			);
 			name = Metal;
 			sourceTree = "<group>";
 		};
-		5215475924005B8A009D036B /* NIBs */ = {
+		5215473C24005094009D036B /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
-				5215475E24005C3D009D036B /* MainMenu.xib */,
-				5215475D24005C3D009D036B /* Window.xib */,
+				520C3BF223FF41DA00B634FB /* AppDelegate.h */,
+				520C3BF323FF41E800B634FB /* AppDelegate.m */,
 			);
-			name = NIBs;
+			name = Delegates;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		520C3BB023FF0DAC00B634FB /* Viewer */ = {
+		520C3BD923FF2C7400B634FB /* Viewer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 520C3BC523FF0DAC00B634FB /* Build configuration list for PBXNativeTarget "Viewer" */;
+			buildConfigurationList = 520C3BE123FF2C7400B634FB /* Build configuration list for PBXNativeTarget "Viewer" */;
 			buildPhases = (
-				520C3BAD23FF0DAC00B634FB /* Sources */,
-				520C3BAE23FF0DAC00B634FB /* Frameworks */,
-				520C3BAF23FF0DAC00B634FB /* Resources */,
+				520C3BD623FF2C7400B634FB /* Sources */,
+				520C3BD723FF2C7400B634FB /* Frameworks */,
+				520C3BD823FF2C7400B634FB /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = Viewer;
-			productName = Viewer;
-			productReference = 520C3BB123FF0DAC00B634FB /* Viewer.app */;
-			productType = "com.apple.product-type.application";
+			productName = Minitest;
+			productReference = 520C3BDA23FF2C7400B634FB /* Viewer */;
+			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		520C3BA923FF0DAC00B634FB /* Project object */ = {
+		520C3BD223FF2C7400B634FB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Bryan Wong";
 				TargetAttributes = {
-					520C3BB023FF0DAC00B634FB = {
+					520C3BD923FF2C7400B634FB = {
 						CreatedOnToolsVersion = 11.3.1;
 					};
 				};
 			};
-			buildConfigurationList = 520C3BAC23FF0DAC00B634FB /* Build configuration list for PBXProject "Viewer" */;
+			buildConfigurationList = 520C3BD523FF2C7400B634FB /* Build configuration list for PBXProject "Viewer" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -163,46 +179,34 @@
 				en,
 				Base,
 			);
-			mainGroup = 520C3BA823FF0DAC00B634FB;
-			productRefGroup = 520C3BB223FF0DAC00B634FB /* Products */;
+			mainGroup = 520C3BD123FF2C7400B634FB;
+			productRefGroup = 520C3BDB23FF2C7400B634FB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				520C3BB023FF0DAC00B634FB /* Viewer */,
+				520C3BD923FF2C7400B634FB /* Viewer */,
 			);
 		};
 /* End PBXProject section */
 
-/* Begin PBXResourcesBuildPhase section */
-		520C3BAF23FF0DAC00B634FB /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5215475F24005C3D009D036B /* Window.xib in Resources */,
-				5215476024005C3D009D036B /* MainMenu.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
-		520C3BAD23FF0DAC00B634FB /* Sources */ = {
+		520C3BD623FF2C7400B634FB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5215474C24005A5B009D036B /* Renderer.mm in Sources */,
-				5215475824005B42009D036B /* hellotriangle.metal in Sources */,
-				52154749240059C9009D036B /* AppView.m in Sources */,
-				5215475C24005BB6009D036B /* AppWindow.m in Sources */,
-				521547462400599E009D036B /* AppDelegate.m in Sources */,
-				521547452400599E009D036B /* main.m in Sources */,
+				520C3BF423FF41E800B634FB /* AppDelegate.m in Sources */,
+				5215472A23FFEFF0009D036B /* shader.metal in Sources */,
+				521547362400431B009D036B /* AppView.m in Sources */,
+				5215474124005393009D036B /* AppWindow.m in Sources */,
+				521547392400436B009D036B /* Renderer.mm in Sources */,
+				520C3BDE23FF2C7400B634FB /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		520C3BC323FF0DAC00B634FB /* Debug */ = {
+		520C3BDF23FF2C7400B634FB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -260,7 +264,7 @@
 			};
 			name = Debug;
 		};
-		520C3BC423FF0DAC00B634FB /* Release */ = {
+		520C3BE023FF2C7400B634FB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -311,36 +315,18 @@
 			};
 			name = Release;
 		};
-		520C3BC623FF0DAC00B634FB /* Debug */ = {
+		520C3BE223FF2C7400B634FB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Viewer/Viewer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = Viewer/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Bryan-Wong.Viewer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
-		520C3BC723FF0DAC00B634FB /* Release */ = {
+		520C3BE323FF2C7400B634FB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Viewer/Viewer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = Viewer/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Bryan-Wong.Viewer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -348,25 +334,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		520C3BAC23FF0DAC00B634FB /* Build configuration list for PBXProject "Viewer" */ = {
+		520C3BD523FF2C7400B634FB /* Build configuration list for PBXProject "Viewer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				520C3BC323FF0DAC00B634FB /* Debug */,
-				520C3BC423FF0DAC00B634FB /* Release */,
+				520C3BDF23FF2C7400B634FB /* Debug */,
+				520C3BE023FF2C7400B634FB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		520C3BC523FF0DAC00B634FB /* Build configuration list for PBXNativeTarget "Viewer" */ = {
+		520C3BE123FF2C7400B634FB /* Build configuration list for PBXNativeTarget "Viewer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				520C3BC623FF0DAC00B634FB /* Debug */,
-				520C3BC723FF0DAC00B634FB /* Release */,
+				520C3BE223FF2C7400B634FB /* Debug */,
+				520C3BE323FF2C7400B634FB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 520C3BA923FF0DAC00B634FB /* Project object */;
+	rootObject = 520C3BD223FF2C7400B634FB /* Project object */;
 }

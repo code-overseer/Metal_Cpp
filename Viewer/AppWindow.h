@@ -1,9 +1,9 @@
-#ifndef AppWindow_h
-#define AppWindow_h
 #import <Cocoa/Cocoa.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface AppWindow : NSWindow
 
 @end
 
-#endif
+NS_ASSUME_NONNULL_END
