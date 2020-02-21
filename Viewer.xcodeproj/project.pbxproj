@@ -16,6 +16,7 @@
 		5215475324005ACD009D036B /* MetalPerformanceShaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5215475024005ACD009D036B /* MetalPerformanceShaders.framework */; };
 		5215475524005ADF009D036B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5215475424005ADF009D036B /* Cocoa.framework */; };
 		5215475824005B42009D036B /* hellotriangle.metal in Sources */ = {isa = PBXBuildFile; fileRef = 5215475724005B42009D036B /* hellotriangle.metal */; };
+		5215475C24005BB6009D036B /* AppWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 5215475B24005BB6009D036B /* AppWindow.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,8 @@
 		5215475024005ACD009D036B /* MetalPerformanceShaders.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalPerformanceShaders.framework; path = System/Library/Frameworks/MetalPerformanceShaders.framework; sourceTree = SDKROOT; };
 		5215475424005ADF009D036B /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		5215475724005B42009D036B /* hellotriangle.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = hellotriangle.metal; sourceTree = "<group>"; };
+		5215475A24005BB6009D036B /* AppWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppWindow.h; sourceTree = "<group>"; };
+		5215475B24005BB6009D036B /* AppWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppWindow.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,14 +73,17 @@
 		520C3BB323FF0DAC00B634FB /* Viewer */ = {
 			isa = PBXGroup;
 			children = (
+				5215475924005B8A009D036B /* NIBs */,
 				521547432400599E009D036B /* main.m */,
 				521547422400599E009D036B /* AppDelegate.h */,
 				521547442400599E009D036B /* AppDelegate.m */,
-				52154747240059C9009D036B /* AppView.h */,
-				52154748240059C9009D036B /* AppView.m */,
 				5215474A24005A5B009D036B /* Renderer.h */,
 				5215474B24005A5B009D036B /* Renderer.mm */,
 				520C3BC223FF0DAC00B634FB /* Viewer.entitlements */,
+				52154747240059C9009D036B /* AppView.h */,
+				52154748240059C9009D036B /* AppView.m */,
+				5215475A24005BB6009D036B /* AppWindow.h */,
+				5215475B24005BB6009D036B /* AppWindow.m */,
 				5215475624005B31009D036B /* Metal */,
 			);
 			path = Viewer;
@@ -100,6 +106,13 @@
 				5215475724005B42009D036B /* hellotriangle.metal */,
 			);
 			name = Metal;
+			sourceTree = "<group>";
+		};
+		5215475924005B8A009D036B /* NIBs */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = NIBs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -172,6 +185,7 @@
 				5215474C24005A5B009D036B /* Renderer.mm in Sources */,
 				5215475824005B42009D036B /* hellotriangle.metal in Sources */,
 				52154749240059C9009D036B /* AppView.m in Sources */,
+				5215475C24005BB6009D036B /* AppWindow.m in Sources */,
 				521547462400599E009D036B /* AppDelegate.m in Sources */,
 				521547452400599E009D036B /* main.m in Sources */,
 			);
