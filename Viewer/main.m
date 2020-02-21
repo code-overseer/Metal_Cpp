@@ -1,12 +1,14 @@
 #import <Foundation/Foundation.h>
 #import <Cocoa/Cocoa.h>
 #import "AppDelegate.h"
+#import "ViewerApp.h"
+#import "graphics.h"
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        [[NSApplication sharedApplication] setDelegate:[AppDelegate new]];
+        launch_app();
         
-        [NSApp run];
+        while (update_view()) {}
     }
     return 0;
 }

@@ -1,4 +1,5 @@
 #import "Renderer.h"
+#import "graphics.h"
 
 static const NSUInteger MaxFrames = 3;
 
