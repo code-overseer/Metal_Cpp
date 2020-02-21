@@ -64,9 +64,9 @@
 				520C3BB523FF0DAC00B634FB /* AppDelegate.m */,
 				520C3BB723FF0DAC00B634FB /* ViewController.h */,
 				520C3BB823FF0DAC00B634FB /* ViewController.m */,
+				520C3BC023FF0DAC00B634FB /* main.m */,
 				520C3BBC23FF0DAC00B634FB /* Main.storyboard */,
 				520C3BBF23FF0DAC00B634FB /* Info.plist */,
-				520C3BC023FF0DAC00B634FB /* main.m */,
 				520C3BC223FF0DAC00B634FB /* Viewer.entitlements */,
 			);
 			path = Viewer;

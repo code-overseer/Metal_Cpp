@@ -1,5 +1,4 @@
 #import "AppView.h"
-#import <MetalKit/MetalKit.h>
 #import "../../Renderer/Renderer/Renderer.h"
 
 @interface AppView()
@@ -12,8 +11,9 @@
 @implementation AppView
 {
     MTKView* _view;
-    Renderer* _renderer;
+    id<MTKViewDelegate> _renderer;
 }
+
 -(nonnull instancetype)init
 {
     self = [super initWithFrame:NSZeroRect];
