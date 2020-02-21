@@ -1,27 +1,28 @@
-//
-//  AppDelegate.m
-//  GraphicsAPITest
-//
-//  Created by Bryan Wong on 2/19/20.
-//  Copyright © 2020 Bryan Wong. All rights reserved.
-//
-
+#import <Foundation/Foundation.h>
 #import "AppDelegate.h"
-
-@interface AppDelegate ()
-
-@end
+#import "AppView.h"
 
 @implementation AppDelegate
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    // Insert code here to initialize your application
+- (void)applicationWillFinishLaunching:(NSNotification *)notification {
+    id menuNib =
+    [[NSNib alloc] initWithNibNamed:@"MainMenu" bundle:[NSBundle mainBundle]];
     
+    [menuNib instantiateWithOwner:NSApp topLevelObjects:nil];
 }
 
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    
+    [NSApp activateIgnoringOtherApps:YES];
+    [NSApp setActivationPolicy:NSApplicationActivationPolicyRegular];
+    
+    id windowNib = [[NSNib alloc] initWithNibNamed:@"Window" bundle:[NSBundle mainBundle]];
 
-- (void)applicationWillTerminate:(NSNotification *)aNotification {
-    // Insert code here to tear down your application
+    [windowNib instantiateWithOwner:NSApp topLevelObjects:nil];
+    
+}
+-(BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender {
+    return true;
 }
 
 

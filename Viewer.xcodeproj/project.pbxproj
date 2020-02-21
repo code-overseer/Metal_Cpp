@@ -7,25 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		520C3BB623FF0DAC00B634FB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 520C3BB523FF0DAC00B634FB /* AppDelegate.m */; };
-		520C3BB923FF0DAC00B634FB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 520C3BB823FF0DAC00B634FB /* ViewController.m */; };
-		520C3BBE23FF0DAC00B634FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 520C3BBC23FF0DAC00B634FB /* Main.storyboard */; };
-		520C3BC123FF0DAC00B634FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 520C3BC023FF0DAC00B634FB /* main.m */; };
-		520C3BCA23FF0E2500B634FB /* AppView.m in Sources */ = {isa = PBXBuildFile; fileRef = 520C3BC923FF0E2500B634FB /* AppView.m */; };
+		521547452400599E009D036B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 521547432400599E009D036B /* main.m */; };
+		521547462400599E009D036B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 521547442400599E009D036B /* AppDelegate.m */; };
+		52154749240059C9009D036B /* AppView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52154748240059C9009D036B /* AppView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		520C3BB123FF0DAC00B634FB /* Viewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Viewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		520C3BB423FF0DAC00B634FB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		520C3BB523FF0DAC00B634FB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		520C3BB723FF0DAC00B634FB /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		520C3BB823FF0DAC00B634FB /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		520C3BBD23FF0DAC00B634FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		520C3BBF23FF0DAC00B634FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		520C3BC023FF0DAC00B634FB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		520C3BC223FF0DAC00B634FB /* Viewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Viewer.entitlements; sourceTree = "<group>"; };
-		520C3BC823FF0E2500B634FB /* AppView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppView.h; sourceTree = "<group>"; };
-		520C3BC923FF0E2500B634FB /* AppView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppView.m; sourceTree = "<group>"; };
+		521547422400599E009D036B /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		521547432400599E009D036B /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		521547442400599E009D036B /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		52154747240059C9009D036B /* AppView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppView.h; sourceTree = "<group>"; };
+		52154748240059C9009D036B /* AppView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,15 +52,11 @@
 		520C3BB323FF0DAC00B634FB /* Viewer */ = {
 			isa = PBXGroup;
 			children = (
-				520C3BC823FF0E2500B634FB /* AppView.h */,
-				520C3BC923FF0E2500B634FB /* AppView.m */,
-				520C3BB423FF0DAC00B634FB /* AppDelegate.h */,
-				520C3BB523FF0DAC00B634FB /* AppDelegate.m */,
-				520C3BB723FF0DAC00B634FB /* ViewController.h */,
-				520C3BB823FF0DAC00B634FB /* ViewController.m */,
-				520C3BC023FF0DAC00B634FB /* main.m */,
-				520C3BBC23FF0DAC00B634FB /* Main.storyboard */,
-				520C3BBF23FF0DAC00B634FB /* Info.plist */,
+				521547432400599E009D036B /* main.m */,
+				521547422400599E009D036B /* AppDelegate.h */,
+				521547442400599E009D036B /* AppDelegate.m */,
+				52154747240059C9009D036B /* AppView.h */,
+				52154748240059C9009D036B /* AppView.m */,
 				520C3BC223FF0DAC00B634FB /* Viewer.entitlements */,
 			);
 			path = Viewer;
@@ -129,7 +119,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				520C3BBE23FF0DAC00B634FB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,25 +129,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				520C3BCA23FF0E2500B634FB /* AppView.m in Sources */,
-				520C3BB923FF0DAC00B634FB /* ViewController.m in Sources */,
-				520C3BC123FF0DAC00B634FB /* main.m in Sources */,
-				520C3BB623FF0DAC00B634FB /* AppDelegate.m in Sources */,
+				52154749240059C9009D036B /* AppView.m in Sources */,
+				521547462400599E009D036B /* AppDelegate.m in Sources */,
+				521547452400599E009D036B /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		520C3BBC23FF0DAC00B634FB /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				520C3BBD23FF0DAC00B634FB /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		520C3BC323FF0DAC00B634FB /* Debug */ = {

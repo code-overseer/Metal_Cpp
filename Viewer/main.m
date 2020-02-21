@@ -1,16 +1,13 @@
-//
-//  main.m
-//  Viewer
-//
-//  Created by Bryan Wong on 2/20/20.
-//  Copyright © 2020 Bryan Wong. All rights reserved.
-//
-
+#import <Foundation/Foundation.h>
 #import <Cocoa/Cocoa.h>
+#import "AppDelegate.h"
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        // Setup code that might create autoreleased objects goes here.
+        [[NSApplication sharedApplication] setDelegate:[AppDelegate new]];
+        
+        [NSApp run];
     }
-    return NSApplicationMain(argc, argv);
+    return 0;
 }
+
