@@ -17,6 +17,8 @@
 		5215475524005ADF009D036B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5215475424005ADF009D036B /* Cocoa.framework */; };
 		5215475824005B42009D036B /* hellotriangle.metal in Sources */ = {isa = PBXBuildFile; fileRef = 5215475724005B42009D036B /* hellotriangle.metal */; };
 		5215475C24005BB6009D036B /* AppWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 5215475B24005BB6009D036B /* AppWindow.m */; };
+		5215475F24005C3D009D036B /* Window.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5215475D24005C3D009D036B /* Window.xib */; };
+		5215476024005C3D009D036B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5215475E24005C3D009D036B /* MainMenu.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		5215475724005B42009D036B /* hellotriangle.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = hellotriangle.metal; sourceTree = "<group>"; };
 		5215475A24005BB6009D036B /* AppWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppWindow.h; sourceTree = "<group>"; };
 		5215475B24005BB6009D036B /* AppWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppWindow.m; sourceTree = "<group>"; };
+		5215475D24005C3D009D036B /* Window.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Window.xib; sourceTree = "<group>"; };
+		5215475E24005C3D009D036B /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +115,8 @@
 		5215475924005B8A009D036B /* NIBs */ = {
 			isa = PBXGroup;
 			children = (
+				5215475E24005C3D009D036B /* MainMenu.xib */,
+				5215475D24005C3D009D036B /* Window.xib */,
 			);
 			name = NIBs;
 			sourceTree = "<group>";
@@ -172,6 +178,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5215475F24005C3D009D036B /* Window.xib in Resources */,
+				5215476024005C3D009D036B /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
