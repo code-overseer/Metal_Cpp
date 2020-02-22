@@ -1,5 +1,6 @@
 #import "Renderer.h"
 #import "graphics.h"
+#import "metal_api.h"
 
 static const NSUInteger MaxFrames = 3;
 

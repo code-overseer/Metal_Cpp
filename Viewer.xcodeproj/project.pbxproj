@@ -55,6 +55,7 @@
 		52154762240081FB009D036B /* ViewerApp.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewerApp.m; sourceTree = "<group>"; };
 		5215476424008752009D036B /* graphics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = graphics.h; sourceTree = "<group>"; };
 		52154765240087A9009D036B /* graphics.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = graphics.m; sourceTree = "<group>"; };
+		522C539524015C080018675C /* metal_api.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = metal_api.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				5215476424008752009D036B /* graphics.h */,
+				522C539524015C080018675C /* metal_api.h */,
 				52154765240087A9009D036B /* graphics.m */,
 				52154761240081FB009D036B /* ViewerApp.h */,
 				52154762240081FB009D036B /* ViewerApp.m */,
