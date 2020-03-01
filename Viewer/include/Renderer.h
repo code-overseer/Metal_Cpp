@@ -9,7 +9,7 @@
 @interface Renderer : NSObject <MTKViewDelegate>
 
 -(nonnull instancetype)initWithMetalKitView:(nonnull MTKView *)view;
-
+-(void)setBuffer:(nonnull id <MTLBuffer>)buffer;
 @end
 
 #endif /* Renderer_h */

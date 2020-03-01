@@ -1,8 +1,8 @@
-#import "graphics.h"
 #import <Foundation/Foundation.h>
 #import <Cocoa/Cocoa.h>
-#import "AppDelegate.h"
-#import "ViewerApp.h"
+#import "../include/graphics.h"
+#import "../include/AppDelegate.h"
+#import "../include/ViewerApp.h"
 
 
 void launch_app() {

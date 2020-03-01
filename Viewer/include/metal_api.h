@@ -1,15 +1,17 @@
 #ifndef metal_api_h
 #define metal_api_h
 #ifdef __OBJC__
-    #import <Metal/Metal.h>
-    #import <MetalKit/MetalKit.h>
-    #import <simd/simd.h>
-    #import <MetalPerformanceShaders/MetalPerformanceShaders.h>
+#import <Metal/Metal.h>
+#import <MetalKit/MetalKit.h>
+#import <simd/simd.h>
+#import <MetalPerformanceShaders/MetalPerformanceShaders.h>
+#import "Renderer.h"
 #else
-    #include <type_traits>
-    #include <cstdlib>
+#include <type_traits>
+#include <cstdlib>
 #endif
 #include <functional>
+
 enum StorageMode {
     Managed,
     Private,
@@ -20,7 +22,6 @@ enum TextureUsage {
     Write,
 };
 
-template<typename T>
 class MetalBuffer {
 private:
     void* _raw = nullptr;
@@ -34,17 +35,38 @@ public:
     MetalBuffer(MetalBuffer &&other) noexcept;
     MetalBuffer& operator=(MetalBuffer &&other) noexcept;
     MetalBuffer(int size, StorageMode mode);
-    MetalBuffer(T* content, int size, StorageMode mode);
+    MetalBuffer(void const* content, int size, StorageMode mode);
     virtual ~MetalBuffer();
     inline StorageMode mode() const { return mode_; }
     inline size_t size() const { return size_; }
+    template<typename T>
     inline size_t count() const { return size_ / sizeof(T); }
     void commit();
-    T get(int i) const;
-    void set(int i, T input);
-    void operate(std::function<void(T*,size_t)>& operation);
+    template<typename T>
+    inline T get(int i) const {
+        if (mode_ != Private && _raw && i < count<T>()) {
+            return reinterpret_cast<T*>(_raw)[i];
+        }
+        return T();
+    }
+    template<typename T>
+    inline void set(int i, T input) {
+        if (mode_ != Private && _raw && i < count<T>()) {
+            reinterpret_cast<T*>(_raw)[i] = input;
+            _dirty = true;
+        }
+    }
+    template<typename T>
+    void operate(std::function<void(T*,size_t)>& operation) {
+        if (mode_ != Private && _raw) {
+            _dirty = true;
+            operation(reinterpret_cast<T*>(_raw), count<T>());
+        }
+    }
+    void setBuffer() const;
 };
 
+#ifdef TEXTURE_DEFINED
 class MetalTexture {
 private:
     size_t width_;
@@ -62,15 +84,17 @@ public:
     inline size_t width() { return width_; }
     inline size_t height() { return height_; }
 };
+#endif
 
 #ifdef __OBJC__
 #import <Foundation/Foundation.h>
 #include <unordered_map>
 #include <algorithm>
+#include "graphics.h"
 
 typedef std::unordered_map<StorageMode, MTLStorageMode> StorageMap;
 
-static MTLStorageMode storage(StorageMode mode) {
+static inline MTLStorageMode storage(StorageMode mode) {
     static StorageMap map = {
         {Managed, MTLStorageModeManaged},
         {Private, MTLStorageModePrivate},
@@ -79,7 +103,7 @@ static MTLStorageMode storage(StorageMode mode) {
     return map.at(mode);
 }
 
-static id <MTLDevice> getDevice() {
+static inline id <MTLDevice> getDevice() {
     static id <MTLDevice> device = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -89,8 +113,16 @@ static id <MTLDevice> getDevice() {
 }
 
 #pragma mark MetalBuffer
-template<typename T>
-MetalBuffer<T>::MetalBuffer(int count, StorageMode mode) : size_(count*sizeof(T)), mode_(mode) {
+void MetalBuffer::setBuffer() const {
+    if (!RENDERER) {
+        printf("Error Code %i: No renderer!", 1);
+        return;
+    }
+    Renderer* renderer = (__bridge Renderer*)(RENDERER);
+    [renderer setBuffer:(__bridge id <MTLBuffer>)(_bufferObject)];
+}
+
+MetalBuffer::MetalBuffer(int size, StorageMode mode) : size_(size), mode_(mode) {
     id <MTLDevice> device = getDevice();
     id <MTLBuffer> buffer = [device newBufferWithLength:size_ options:storage(mode_)];
     _raw = [buffer contents];
@@ -98,8 +130,8 @@ MetalBuffer<T>::MetalBuffer(int count, StorageMode mode) : size_(count*sizeof(T)
     _bufferObject = (void*)CFBridgingRetain(buffer);
 }
 
-template<typename T>
-MetalBuffer<T>::MetalBuffer(T* content, int count, StorageMode mode) : size_(count*sizeof(T)), mode_(mode) {
+
+MetalBuffer::MetalBuffer(void const* content, int size, StorageMode mode) : size_(size), mode_(mode) {
     id <MTLDevice> device = getDevice();
     id <MTLBuffer> buffer = [device newBufferWithLength:size_ options:storage(mode_)];
     if (mode_ != Private) _raw = [buffer contents];
@@ -107,20 +139,20 @@ MetalBuffer<T>::MetalBuffer(T* content, int count, StorageMode mode) : size_(cou
     _bufferObject = (void*)CFBridgingRetain(buffer);
 }
 
-template<typename T>
-MetalBuffer<T>::~MetalBuffer() {
+
+MetalBuffer::~MetalBuffer() {
     if (_bufferObject) CFRelease(_bufferObject);
 }
 
-template<typename T>
-MetalBuffer<T>::MetalBuffer(MetalBuffer<T> &&other) noexcept : size_(other.size_), mode_(other.mode), _dirty(other.dirty), _bufferObject(other._bufferObject), _raw(other._raw){
+
+MetalBuffer::MetalBuffer(MetalBuffer &&other) noexcept : size_(other.size_), mode_(other.mode_), _dirty(other._dirty), _bufferObject(other._bufferObject), _raw(other._raw){
     other._bufferObject = nullptr;
     other._raw = nullptr;
     other.size_ = 0;
 }
 
-template<typename T>
-MetalBuffer<T>& MetalBuffer<T>::operator=(MetalBuffer<T> &&other) noexcept {
+
+MetalBuffer& MetalBuffer::operator=(MetalBuffer &&other) noexcept {
     size_ = other.size_;
     mode_ = other.mode_;
     _dirty = other._dirty;
@@ -129,39 +161,16 @@ MetalBuffer<T>& MetalBuffer<T>::operator=(MetalBuffer<T> &&other) noexcept {
     other._bufferObject = nullptr;
     other._raw = nullptr;
     other.size_ = 0;
-    return this;
+    return *this;
 }
 
-template<typename T>
-inline T MetalBuffer<T>::get(int i) const {
-    if (mode_ != Private && _raw && i < count()) {
-        return reinterpret_cast<T*>(_raw)[i];
-    }
-    return T();
-}
 
-template<typename T>
-inline void MetalBuffer<T>::set(int i, T input) {
-    if (mode_ != Private && _raw && i < count()) {
-        *reinterpret_cast<T*>(_raw)[i] = input;
-        _dirty = true;
-    }
-}
-
-template<typename T>
-inline void MetalBuffer<T>::operate(std::function<void(T*,size_t)>& operation) {
-    if (mode_ != Private && _raw) {
-        _dirty = true;
-        operation(reinterpret_cast<T*>(_raw), count());
-    }
-}
-
-template<typename T>
-void MetalBuffer<T>::commit() {
+void MetalBuffer::commit() {
     if (mode_ == Managed && _dirty) {
-        id <MTLBuffer> buffer = CFBridgingRelease(_bufferObject);
-        _bufferObject = (void*)CFBridgingRetain(buffer);
+        id <MTLBuffer> buffer = (__bridge id <MTLBuffer>)(_bufferObject);
+        //        id <MTLBuffer> buffer = CFBridgingRelease(_bufferObject);
         [buffer didModifyRange:NSMakeRange(0, size_)];
+        //        _bufferObject = (void*)CFBridgingRetain(buffer);
     }
 }
 #pragma mark MetalTexture

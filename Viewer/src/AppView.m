@@ -1,5 +1,5 @@
-#import "AppView.h"
-#import "Renderer.h"
+#import "../include/AppView.h"
+#import "../include/Renderer.h"
 
 @interface AppView()
 

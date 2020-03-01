@@ -1,8 +1,8 @@
 #import <Foundation/Foundation.h>
 #import <Cocoa/Cocoa.h>
-#import "AppDelegate.h"
-#import "ViewerApp.h"
-#import "graphics.h"
+#import "include/AppDelegate.h"
+#import "include/ViewerApp.h"
+#import "include/graphics.h"
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {

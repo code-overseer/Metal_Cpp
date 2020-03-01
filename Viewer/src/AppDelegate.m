@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
-#import "AppDelegate.h"
-#import "AppView.h"
+#import "../include/AppDelegate.h"
+#import "../include/AppView.h"
 
 @implementation AppDelegate
 

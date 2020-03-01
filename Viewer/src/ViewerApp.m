@@ -1,6 +1,4 @@
-
-#import "ViewerApp.h"
-
+#import "../include/ViewerApp.h"
 
 @implementation ViewerApp
 -(void) setup {

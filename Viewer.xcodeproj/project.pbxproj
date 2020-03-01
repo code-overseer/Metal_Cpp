@@ -93,19 +93,9 @@
 		520C3BDC23FF2C7400B634FB /* Viewer */ = {
 			isa = PBXGroup;
 			children = (
-				5215476424008752009D036B /* graphics.h */,
-				522C539524015C080018675C /* metal_api.h */,
-				52154765240087A9009D036B /* graphics.m */,
-				52154761240081FB009D036B /* ViewerApp.h */,
-				52154762240081FB009D036B /* ViewerApp.m */,
+				5220C195240C2D6D000F58E2 /* src */,
+				5220C194240C2D59000F58E2 /* include */,
 				520C3BDD23FF2C7400B634FB /* main.m */,
-				521547382400436B009D036B /* Renderer.h */,
-				521547372400436B009D036B /* Renderer.mm */,
-				521547312400431B009D036B /* AppView.h */,
-				521547342400431B009D036B /* AppView.m */,
-				5215473F24005393009D036B /* AppWindow.h */,
-				5215474024005393009D036B /* AppWindow.m */,
-				5215473C24005094009D036B /* Delegates */,
 				5215472823FFEFE1009D036B /* Metal */,
 				520C3BF623FF491100B634FB /* NIBs */,
 			);
@@ -140,13 +130,31 @@
 			name = Metal;
 			sourceTree = "<group>";
 		};
-		5215473C24005094009D036B /* Delegates */ = {
+		5220C194240C2D59000F58E2 /* include */ = {
 			isa = PBXGroup;
 			children = (
 				520C3BF223FF41DA00B634FB /* AppDelegate.h */,
+				5215476424008752009D036B /* graphics.h */,
+				522C539524015C080018675C /* metal_api.h */,
+				52154761240081FB009D036B /* ViewerApp.h */,
+				521547382400436B009D036B /* Renderer.h */,
+				521547312400431B009D036B /* AppView.h */,
+				5215473F24005393009D036B /* AppWindow.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		5220C195240C2D6D000F58E2 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				52154765240087A9009D036B /* graphics.m */,
+				52154762240081FB009D036B /* ViewerApp.m */,
+				521547372400436B009D036B /* Renderer.mm */,
+				521547342400431B009D036B /* AppView.m */,
+				5215474024005393009D036B /* AppWindow.m */,
 				520C3BF323FF41E800B634FB /* AppDelegate.m */,
 			);
-			name = Delegates;
+			path = src;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

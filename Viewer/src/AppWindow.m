@@ -1,5 +1,5 @@
-#import "AppWindow.h"
-#import "AppView.h"
+#import "../include/AppWindow.h"
+#import "../include/AppView.h"
 
 @implementation AppWindow
 

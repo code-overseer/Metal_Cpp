@@ -2,9 +2,9 @@ cmake_minimum_required(VERSION 3.14)
 project(Viewer)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -x objective-c")
-
-file( GLOB HEADER_FILES *.h )
-file( GLOB SOURCE_FILES *.m *.mm )
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+file( GLOB HEADER_FILES include/*.h )
+file( GLOB SOURCE_FILES src/*.m src/*.mm )
 
 set(XIB_FILE
     ./MainMenu.xib
@@ -13,13 +13,9 @@ set(XIB_FILE
 
 set(SHADERS shader.metal)
 
-add_executable(
-    ${PROJECT_NAME}
+add_library(${PROJECT_NAME} STATIC
     ${HEADER_FILES}
-    ${SOURCE_FILES}
-    ${XIB_FILE}
-    ${SHADERS}
-)
+    ${SOURCE_FILES})
 
 target_link_libraries(${PROJECT_NAME}
     "-framework Cocoa"

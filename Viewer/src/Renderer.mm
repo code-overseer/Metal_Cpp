@@ -1,6 +1,7 @@
-#import "Renderer.h"
-#import "graphics.h"
-#import "metal_api.h"
+#import "../include/Renderer.h"
+#import "../include/graphics.h"
+#import "../include/metal_api.h"
+#include <iostream>
 
 static const NSUInteger MaxFrames = 3;
 
@@ -20,8 +21,13 @@ void* RENDERER = NULL;
     id <MTLLibrary> _defaultLibrary;
     id <MTLRenderPipelineState> _pipelineState;
     id <MTLTexture> _sampleTexture;
+    id <MTLBuffer> _testBuffer;
     MTLSamplePosition _samplePositions[4];
     
+}
+-(void)setBuffer:(nonnull id <MTLBuffer>) buffer {
+    _testBuffer = buffer;
+    std::cout << "Buffer set!" << std::endl;
 }
 
 -(nonnull instancetype)initWithMetalKitView:(nonnull MTKView *)view {
@@ -37,13 +43,21 @@ void* RENDERER = NULL;
         _samplePositions[1] = MTLSamplePositionMake(0.75, 0.25);
         _samplePositions[2] = MTLSamplePositionMake(0.75, 0.75);
         _samplePositions[3] = MTLSamplePositionMake(0.25, 0.75);
+        _testBuffer = nil;
         RENDERER = &self;
+        
+        //        simd_float4x4 ltw = simd_matrix(simd_make_float4(0.5,0,0,0),
+        //                                        simd_make_float4(0,0.5,0,0),
+        //                                        simd_make_float4(0,0,0.5,0),
+        //                                        simd_make_float4(0,0.1,0,1));
+        //        _testBuffer = [_device newBufferWithBytes:&ltw length:sizeof(simd_float4x4) options:MTLResourceStorageModeManaged];
     }
     
     return self;
 }
 
 - (void) drawInMTKView:(nonnull MTKView *)view {
+    if (!_testBuffer) return;
     dispatch_semaphore_wait(_frameSemaphore, DISPATCH_TIME_FOREVER);
     id <MTLCommandBuffer> commandBuffer = [_commandQueue commandBuffer];
     commandBuffer.label = @"DrawCommand";
@@ -57,6 +71,7 @@ void* RENDERER = NULL;
     auto encoder = [commandBuffer renderCommandEncoderWithDescriptor:rpd];
     
     [encoder setRenderPipelineState: _pipelineState];
+    [encoder setVertexBuffer:_testBuffer offset:0 atIndex:0];
     [encoder drawPrimitives:MTLPrimitiveTypeTriangle vertexStart:0 vertexCount:3];
     
     [encoder endEncoding];
@@ -105,7 +120,7 @@ void* RENDERER = NULL;
 - (MTLRenderPassDescriptor*) getPassDescriptor:(nonnull MTKView *)view {
     auto rpd = view.currentRenderPassDescriptor;
     rpd.colorAttachments[0].texture = _sampleTexture;
-//    printf("%lu, %lu\n", (unsigned long)_sampleTexture.width, _sampleTexture.height);
+    //    printf("%lu, %lu\n", (unsigned long)_sampleTexture.width, _sampleTexture.height);
     rpd.colorAttachments[0].resolveTexture = view.currentDrawable.texture;
     rpd.colorAttachments[0].loadAction = MTLLoadActionClear;
     rpd.colorAttachments[0].clearColor = MTLClearColorMake(0, 0, 0, 1);
@@ -115,3 +130,4 @@ void* RENDERER = NULL;
 }
 
 @end
+
