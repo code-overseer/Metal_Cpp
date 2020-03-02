@@ -5,6 +5,6 @@
 #import <MetalKit/MetalKit.h>
 
 @interface AppView : NSView
-
+-(void)callDraw;
 @end
 #endif

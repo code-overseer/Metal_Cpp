@@ -23,6 +23,9 @@
     }
     return self;
 }
+-(void)callDraw {
+    [_view draw];
+}
 -(void)setupView
 {
     self.translatesAutoresizingMaskIntoConstraints = false;
@@ -32,6 +35,7 @@
     _view = [[MTKView alloc] init];
     [self addSubview:_view];
     _view.translatesAutoresizingMaskIntoConstraints = false;
+    [_view setPreferredFramesPerSecond:60];
     
     [self addConstraint:[NSLayoutConstraint
                          constraintWithItem:_view
@@ -74,7 +78,6 @@
     
     _renderer = [[Renderer alloc] initWithMetalKitView:_view];
     _view.delegate = _renderer;
-
     
     _view.needsDisplay = true;
         

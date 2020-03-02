@@ -40,7 +40,6 @@
 		520C3BF123FF397C00B634FB /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		520C3BF223FF41DA00B634FB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		520C3BF323FF41E800B634FB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		520C3BF523FF48E500B634FB /* Window.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Window.xib; sourceTree = "<group>"; };
 		5215472923FFEFF0009D036B /* shader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = shader.metal; sourceTree = "<group>"; };
 		5215472B23FFF017009D036B /* MetalPerformanceShaders.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalPerformanceShaders.framework; path = System/Library/Frameworks/MetalPerformanceShaders.framework; sourceTree = SDKROOT; };
 		5215472C23FFF017009D036B /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
@@ -116,7 +115,6 @@
 		520C3BF623FF491100B634FB /* NIBs */ = {
 			isa = PBXGroup;
 			children = (
-				520C3BF523FF48E500B634FB /* Window.xib */,
 				520C3BF123FF397C00B634FB /* MainMenu.xib */,
 			);
 			name = NIBs;

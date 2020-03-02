@@ -10,17 +10,17 @@
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
         <menu title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
             <items>
-                <menuItem title="Minitest" id="1Xt-HY-uBw">
+                <menuItem title="Viewer" id="1Xt-HY-uBw">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Minitest" systemMenu="apple" id="uQy-DD-JDr">
+                    <menu key="submenu" title="Viewer" systemMenu="apple" id="uQy-DD-JDr">
                         <items>
-                            <menuItem title="About Minitest" id="5kV-Vb-QxS">
+                            <menuItem title="About Viewer" id="5kV-Vb-QxS">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="orderFrontStandardAboutPanel:" target="-1" id="Exp-CZ-Vem"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Hide Minitest" keyEquivalent="h" id="Olw-nP-bQN">
+                            <menuItem title="Hide Viewer" keyEquivalent="h" id="Olw-nP-bQN">
                                 <connections>
                                     <action selector="hide:" target="-1" id="PnN-Uc-m68"/>
                                 </connections>
@@ -38,7 +38,7 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="kCx-OE-vgT"/>
-                            <menuItem title="Quit Minitest" keyEquivalent="q" id="4sb-4s-VLi">
+                            <menuItem title="Quit Viewer" keyEquivalent="q" id="4sb-4s-VLi">
                                 <connections>
                                     <action selector="terminate:" target="-1" id="Te7-pn-YzF"/>
                                 </connections>

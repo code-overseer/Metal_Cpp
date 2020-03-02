@@ -4,6 +4,7 @@ using namespace metal;
 
 struct VertexOut {
     simd_float4 position [[position]];
+    simd_float4 color;
 };
 
 constant constexpr static const float4 VERTS[3]

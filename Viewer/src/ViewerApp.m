@@ -1,4 +1,6 @@
 #import "../include/ViewerApp.h"
+#import "../include/AppWindow.h"
+#import "../include/AppView.h"
 
 @implementation ViewerApp
 -(void) setup {
@@ -7,17 +9,17 @@
 }
 
 -(void) update {
-    @autoreleasepool {
-        if (!_shouldKeepRunning) return;
-            NSEvent* event =
-        [self
-         nextEventMatchingMask:NSEventMaskAny
-         untilDate:[NSDate distantFuture]
-         inMode:NSDefaultRunLoopMode
-         dequeue:YES];
-        [self sendEvent:event];
-        [self updateWindows];
-    }
+    if (!_shouldKeepRunning) return;
+    NSEvent* event =
+    [self
+     nextEventMatchingMask:NSEventMaskAny
+     untilDate:[NSDate distantFuture]
+     inMode:NSDefaultRunLoopMode
+     dequeue:YES];
+    [self sendEvent:event];
+    AppView* v = [[self keyWindow] contentView];
+    [v callDraw];
+    [self updateWindows];
 }
 
 -(void) terminate:(id)sender

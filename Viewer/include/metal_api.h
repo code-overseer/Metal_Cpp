@@ -22,6 +22,8 @@ enum TextureUsage {
     Write,
 };
 
+
+
 class MetalBuffer {
 private:
     void* _raw = nullptr;
@@ -114,12 +116,9 @@ static inline id <MTLDevice> getDevice() {
 
 #pragma mark MetalBuffer
 void MetalBuffer::setBuffer() const {
-    if (!RENDERER) {
-        printf("Error Code %i: No renderer!", 1);
-        return;
-    }
+    if (!RENDERER) { puts("No renderer!"); return; }
     Renderer* renderer = (__bridge Renderer*)(RENDERER);
-    [renderer setBuffer:(__bridge id <MTLBuffer>)(_bufferObject)];
+    [renderer setBuffer:_bufferObject];
 }
 
 MetalBuffer::MetalBuffer(int size, StorageMode mode) : size_(size), mode_(mode) {
@@ -133,7 +132,7 @@ MetalBuffer::MetalBuffer(int size, StorageMode mode) : size_(size), mode_(mode) 
 
 MetalBuffer::MetalBuffer(void const* content, int size, StorageMode mode) : size_(size), mode_(mode) {
     id <MTLDevice> device = getDevice();
-    id <MTLBuffer> buffer = [device newBufferWithLength:size_ options:storage(mode_)];
+    id <MTLBuffer> buffer = [device newBufferWithBytes:content length:size options:storage(mode_)];
     if (mode_ != Private) _raw = [buffer contents];
     _dirty = false;
     _bufferObject = (void*)CFBridgingRetain(buffer);
@@ -168,9 +167,7 @@ MetalBuffer& MetalBuffer::operator=(MetalBuffer &&other) noexcept {
 void MetalBuffer::commit() {
     if (mode_ == Managed && _dirty) {
         id <MTLBuffer> buffer = (__bridge id <MTLBuffer>)(_bufferObject);
-        //        id <MTLBuffer> buffer = CFBridgingRelease(_bufferObject);
         [buffer didModifyRange:NSMakeRange(0, size_)];
-        //        _bufferObject = (void*)CFBridgingRetain(buffer);
     }
 }
 #pragma mark MetalTexture
