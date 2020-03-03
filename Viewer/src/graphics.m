@@ -8,16 +8,15 @@
 
 void launch_app() {
     ViewerApp* app = [ViewerApp sharedApplication];
-    
     [app setDelegate:[[AppDelegate alloc] init]];
     
     [app setup];
 }
 
-char update_view() {
+void update_view(bool* shouldEnd) {
     ViewerApp* app = [ViewerApp sharedApplication];
     if (app && app.shouldKeepRunning) [app update];
-    return app.shouldKeepRunning ? 1 : 0;
+    *shouldEnd = app.shouldKeepRunning;
 }
 
 static simd_float4x4 mat;

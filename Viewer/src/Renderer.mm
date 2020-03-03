@@ -159,8 +159,7 @@ void* RENDERER = NULL;
     auto rpd = view.currentRenderPassDescriptor;
     
     rpd.colorAttachments[0].texture = _sampleTexture;
-    
-    //    printf("%lu, %lu\n", (unsigned long)_sampleTexture.width, _sampleTexture.height);
+
     rpd.colorAttachments[0].resolveTexture = view.currentDrawable.texture;
     rpd.colorAttachments[0].loadAction = MTLLoadActionClear;
     rpd.colorAttachments[0].clearColor = MTLClearColorMake(0, 0, 0, 1);
