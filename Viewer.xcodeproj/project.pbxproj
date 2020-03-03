@@ -149,8 +149,8 @@
 			children = (
 				52154765240087A9009D036B /* graphics.m */,
 				5247D204240ED7C60005B829 /* metal_api.mm */,
-				52154762240081FB009D036B /* ViewerApp.m */,
 				521547372400436B009D036B /* Renderer.mm */,
+				52154762240081FB009D036B /* ViewerApp.m */,
 				521547342400431B009D036B /* AppView.mm */,
 				5215474024005393009D036B /* AppWindow.m */,
 				520C3BF323FF41E800B634FB /* AppDelegate.mm */,

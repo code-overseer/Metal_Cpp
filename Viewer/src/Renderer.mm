@@ -149,7 +149,7 @@ void* RENDERER = NULL;
     pipelineDescriptor.depthAttachmentPixelFormat = view.depthStencilPixelFormat;
     _simpleShader = [_device newRenderPipelineStateWithDescriptor:pipelineDescriptor error:&error];
     
-    if (!_simpleShader)
+    if (error || !_simpleShader)
     {
         NSLog(@"Failed to created pipeline state, error %@", error);
     }
