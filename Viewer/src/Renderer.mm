@@ -1,16 +1,16 @@
 #import "../include/Renderer.h"
 #import "../include/graphics.h"
-#import "../include/metal_api.h"
 #import <QuartzCore/QuartzCore.h>
 #include <iostream>
 
-static const NSUInteger MaxFrames = 1;
+static const NSUInteger MaxFrames = 3;
 
 void* RENDERER = NULL;
 
 @interface Renderer()
 
 -(MTLRenderPassDescriptor*) getPassDescriptor:(nonnull MTKView *)view;
+-(void) updateBuffers;
 
 @end
 
@@ -20,62 +20,88 @@ void* RENDERER = NULL;
     id <MTLDevice> _device;
     id <MTLCommandQueue> _commandQueue;
     id <MTLLibrary> _defaultLibrary;
-    id <MTLRenderPipelineState> _pipelineState;
+    id <MTLRenderPipelineState> _simpleShader;
     id <MTLTexture> _sampleTexture;
-    id <MTLBuffer> _testBuffer;
-    MTLSamplePosition _samplePositions[4];
+    GPUPayload* _payload;
+    id <MTLBuffer> _localToWorlds[MaxFrames];
+    id <MTLBuffer> _viewMatrix[MaxFrames];
+    id <MTLBuffer> _projectionMatrix[MaxFrames];
+    int _frameIdx;
     
 }
--(void)setBuffer:(nonnull void*) buffer {
-    _testBuffer = (__bridge id <MTLBuffer>)(buffer);
-    float* v = reinterpret_cast<float*>([_testBuffer contents]);
-    printf("%f,%f,%f,%f\n", v[0],v[1],v[2],v[3]);
-    
+-(void)setPayload:(nonnull GPUPayload*) payload {
+    _payload = payload;
+    for (int i =0; i < MaxFrames; ++i) {
+        _localToWorlds[i] = [_device newBufferWithBytes: payload->localToWorld length:payload->instance_count*sizeof(simd_float4x4) options:MTLResourceStorageModeShared];
+    }
 }
 
 -(nonnull instancetype)initWithMetalKitView:(nonnull MTKView *)view {
     self = [super init];
     if(self)
     {
+        _frameIdx = 0;
         _device = view.device;
         _frameSemaphore = dispatch_semaphore_create(MaxFrames);
         _defaultLibrary = [_device newDefaultLibrary];
         _commandQueue = [_device newCommandQueue];
         [self createPipeline:view];
-        _samplePositions[0] = MTLSamplePositionMake(0.25, 0.25);
-        _samplePositions[1] = MTLSamplePositionMake(0.75, 0.25);
-        _samplePositions[2] = MTLSamplePositionMake(0.75, 0.75);
-        _samplePositions[3] = MTLSamplePositionMake(0.25, 0.75);
-        _testBuffer = nil;
+        _payload = nil;
+        _camera.zoom(10.f);
+        _camera.position(simd_make_float2(0, 0));
+        auto v = _camera.view();
+        for (int i = 0; i < MaxFrames; ++i) {
+            _projectionMatrix[i] = [_device newBufferWithLength:sizeof(simd_float4x4)
+                                                    options:MTLResourceStorageModeShared];
+            _viewMatrix[i] = [_device newBufferWithBytes:&v
+                                                  length:sizeof(simd_float4x4)
+                                                 options:MTLResourceStorageModeShared];
+        }
+        
         RENDERER = (__bridge void*)(self);
         
-        simd_float4x4 ltw = simd_matrix(simd_make_float4(1,0,0,0),
-                                        simd_make_float4(0,1,0,0),
-                                        simd_make_float4(0,0,1,0),
-                                        simd_make_float4(0,0,0,1));
-        _testBuffer = [_device newBufferWithBytes:&ltw length:sizeof(simd_float4x4) options:MTLResourceStorageModeManaged];
     }
     
     return self;
 }
 
 - (void) drawInMTKView:(nonnull MTKView *)view {
-    if (!_testBuffer) return;
+    if (!_payload || !_projectionMatrix[_frameIdx]) return;
+    dispatch_semaphore_wait(_frameSemaphore, DISPATCH_TIME_FOREVER);
     CFTimeInterval target = CACurrentMediaTime() + 1.0/60.0;
+    [self updateBuffers];
     
     id <MTLCommandBuffer> commandBuffer = [_commandQueue commandBuffer];
-    commandBuffer.label = @"DrawCommand";
     
     auto rpd = [self getPassDescriptor:view];
     auto encoder = [commandBuffer renderCommandEncoderWithDescriptor:rpd];
     
-    [encoder setRenderPipelineState: _pipelineState];
-    [encoder setVertexBuffer:_testBuffer offset:0 atIndex:0];
-    [encoder drawPrimitives:MTLPrimitiveTypeTriangle vertexStart:0 vertexCount:3];
+    [encoder setRenderPipelineState: _simpleShader];
+    [encoder setVertexBuffer: (__bridge id<MTLBuffer>)(_payload->vertices.getBuffer())
+                      offset:0 atIndex:0];
+    [encoder setVertexBuffer: _localToWorlds[_frameIdx]
+                      offset:0 atIndex:1];
+    [encoder setVertexBuffer: (__bridge id<MTLBuffer>)(_payload->colour.getBuffer())
+                      offset:0 atIndex:2];
+    [encoder setVertexBuffer: _viewMatrix[_frameIdx] offset:0 atIndex:3];
+    [encoder setVertexBuffer: _projectionMatrix[_frameIdx] offset:0 atIndex:4];
+    
+    [encoder drawIndexedPrimitives:MTLPrimitiveTypeTriangle
+                        indexCount:_payload->triangles.count<uint16>()
+                         indexType:MTLIndexTypeUInt16
+                       indexBuffer:(__bridge id<MTLBuffer>)(_payload->triangles.getBuffer()) indexBufferOffset:0];
     
     [encoder endEncoding];
     [commandBuffer presentDrawable:view.currentDrawable atTime:target];
+    
+    __block dispatch_semaphore_t block_sema = _frameSemaphore;
+    [commandBuffer addCompletedHandler:^(id<MTLCommandBuffer> buffer)
+     {
+        dispatch_semaphore_signal(block_sema);
+    }];
+    
     [commandBuffer commit];
+    _frameIdx = (_frameIdx + 1) % MaxFrames;
 }
 
 - (void) mtkView:(nonnull MTKView *)view drawableSizeWillChange:(CGSize)size {
@@ -87,9 +113,19 @@ void* RENDERER = NULL;
     tex.pixelFormat = view.colorPixelFormat;
     tex.usage = MTLTextureUsageRenderTarget;
     tex.storageMode = MTLStorageModePrivate;
-    dispatch_semaphore_wait(_frameSemaphore, DISPATCH_TIME_FOREVER);
     _sampleTexture = [_device newTextureWithDescriptor:tex];
-    dispatch_semaphore_signal(_frameSemaphore);
+    _camera.rcp_aspect(size.height/size.width);
+}
+
+-(void) updateBuffers {
+    auto ptr = reinterpret_cast<simd_float4x4*>([_localToWorlds[_frameIdx] contents]);
+    memcpy(ptr, _payload->localToWorld, _payload->instance_count*sizeof(simd_float4x4));
+    auto tmp = _camera.projection();
+    ptr = reinterpret_cast<simd_float4x4*>([_projectionMatrix[_frameIdx] contents]);
+    memcpy(ptr, &tmp, sizeof(simd_float4x4));
+    tmp = _camera.view();
+    ptr = reinterpret_cast<simd_float4x4*>([_viewMatrix[_frameIdx] contents]);
+    memcpy(ptr, &tmp, sizeof(simd_float4x4));
 }
 
 - (void) createPipeline:(nonnull MTKView*)view {
@@ -111,9 +147,9 @@ void* RENDERER = NULL;
     pipelineDescriptor.colorAttachments[0].destinationRGBBlendFactor = MTLBlendFactorOneMinusSourceAlpha;
     pipelineDescriptor.colorAttachments[0].destinationAlphaBlendFactor = MTLBlendFactorOneMinusSourceAlpha;
     pipelineDescriptor.depthAttachmentPixelFormat = view.depthStencilPixelFormat;
-    _pipelineState = [_device newRenderPipelineStateWithDescriptor:pipelineDescriptor error:&error];
+    _simpleShader = [_device newRenderPipelineStateWithDescriptor:pipelineDescriptor error:&error];
     
-    if (!_pipelineState)
+    if (!_simpleShader)
     {
         NSLog(@"Failed to created pipeline state, error %@", error);
     }
@@ -121,15 +157,20 @@ void* RENDERER = NULL;
 
 - (MTLRenderPassDescriptor*) getPassDescriptor:(nonnull MTKView *)view {
     auto rpd = view.currentRenderPassDescriptor;
-    dispatch_semaphore_wait(_frameSemaphore, DISPATCH_TIME_FOREVER);
+    
     rpd.colorAttachments[0].texture = _sampleTexture;
-    dispatch_semaphore_signal(_frameSemaphore);
+    
     //    printf("%lu, %lu\n", (unsigned long)_sampleTexture.width, _sampleTexture.height);
     rpd.colorAttachments[0].resolveTexture = view.currentDrawable.texture;
     rpd.colorAttachments[0].loadAction = MTLLoadActionClear;
     rpd.colorAttachments[0].clearColor = MTLClearColorMake(0, 0, 0, 1);
     rpd.colorAttachments[0].storeAction = MTLStoreActionMultisampleResolve;
-    [rpd setSamplePositions:_samplePositions count:4];
+    MTLSamplePosition samplePositions[4];
+    samplePositions[0] = MTLSamplePositionMake(0.25, 0.25);
+    samplePositions[1] = MTLSamplePositionMake(0.75, 0.25);
+    samplePositions[2] = MTLSamplePositionMake(0.75, 0.75);
+    samplePositions[3] = MTLSamplePositionMake(0.25, 0.75);
+    [rpd setSamplePositions:samplePositions count:4];
     return rpd;
 }
 

@@ -8,7 +8,6 @@
         self.contentView =[[AppView alloc] init];
         [self setTitle:@"Viewer"];
         [self makeKeyAndOrderFront:nil];
-//        [self setReleasedWhenClosed:true];
     }
     return self;
 }

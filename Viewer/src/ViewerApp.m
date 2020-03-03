@@ -10,15 +10,14 @@
 
 -(void) update {
     if (!_shouldKeepRunning) return;
-    NSEvent* event =
-    [self
-     nextEventMatchingMask:NSEventMaskAny
-     untilDate:[NSDate distantFuture]
-     inMode:NSDefaultRunLoopMode
-     dequeue:YES];
+    NSEvent* event = [self nextEventMatchingMask:NSEventMaskAny
+                      untilDate:[NSDate distantFuture]
+                         inMode:NSDefaultRunLoopMode
+                        dequeue:YES];
     [self sendEvent:event];
+    
     AppView* v = [[self keyWindow] contentView];
-    [v callDraw];
+//    [v callDraw];
     [self updateWindows];
 }
 
