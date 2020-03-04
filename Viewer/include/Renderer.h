@@ -5,7 +5,6 @@
 #import <simd/simd.h>
 #import <Metal/Metal.h>
 #import <MetalPerformanceShaders/MetalPerformanceShaders.h>
-#import "metal_api.h"
 
 struct Camera {
 private:
@@ -36,7 +35,6 @@ public:
 @interface Renderer : NSObject <MTKViewDelegate>
 
 -(nonnull instancetype)initWithMetalKitView:(nonnull MTKView *)view;
--(void)setPayload:(nonnull GPUPayload *) payload;
 @property Camera camera;
 @end
 

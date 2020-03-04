@@ -19,7 +19,6 @@
 		5215474124005393009D036B /* AppWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 5215474024005393009D036B /* AppWindow.m */; };
 		52154763240081FB009D036B /* ViewerApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 52154762240081FB009D036B /* ViewerApp.m */; };
 		5215476624008E2F009D036B /* graphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 52154765240087A9009D036B /* graphics.m */; };
-		5247D205240ED7C60005B829 /* metal_api.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5247D204240ED7C60005B829 /* metal_api.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -55,8 +54,6 @@
 		52154762240081FB009D036B /* ViewerApp.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewerApp.m; sourceTree = "<group>"; };
 		5215476424008752009D036B /* graphics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = graphics.h; sourceTree = "<group>"; };
 		52154765240087A9009D036B /* graphics.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = graphics.m; sourceTree = "<group>"; };
-		522C539524015C080018675C /* metal_api.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = metal_api.h; sourceTree = "<group>"; };
-		5247D204240ED7C60005B829 /* metal_api.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = metal_api.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,7 +132,6 @@
 			children = (
 				520C3BF223FF41DA00B634FB /* AppDelegate.h */,
 				5215476424008752009D036B /* graphics.h */,
-				522C539524015C080018675C /* metal_api.h */,
 				52154761240081FB009D036B /* ViewerApp.h */,
 				521547312400431B009D036B /* AppView.h */,
 				521547382400436B009D036B /* Renderer.h */,
@@ -148,7 +144,6 @@
 			isa = PBXGroup;
 			children = (
 				52154765240087A9009D036B /* graphics.m */,
-				5247D204240ED7C60005B829 /* metal_api.mm */,
 				521547372400436B009D036B /* Renderer.mm */,
 				52154762240081FB009D036B /* ViewerApp.m */,
 				521547342400431B009D036B /* AppView.mm */,
@@ -222,7 +217,6 @@
 				5215474124005393009D036B /* AppWindow.m in Sources */,
 				521547392400436B009D036B /* Renderer.mm in Sources */,
 				5215476624008E2F009D036B /* graphics.m in Sources */,
-				5247D205240ED7C60005B829 /* metal_api.mm in Sources */,
 				520C3BDE23FF2C7400B634FB /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
