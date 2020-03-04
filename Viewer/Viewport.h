@@ -4,7 +4,12 @@
 #import <Cocoa/Cocoa.h>
 #import <MetalKit/MetalKit.h>
 
-@interface AppView : NSView
--(void)callDraw;
+
+
+@interface Viewport : NSView
+
+//-(nonnull instancetype)initWithAPI:(Metal_API*) api
+-(void)draw;
+
 @end
 #endif

@@ -1,20 +1,14 @@
-#import "../include/AppWindow.h"
-#import "../include/AppView.h"
+#import "AppWindow.h"
+#import "Viewport.h"
 
 @implementation AppWindow
 -(nonnull instancetype)initWithContentRect:(NSRect)contentRect styleMask:(NSWindowStyleMask)style backing:(NSBackingStoreType)backingStoreType defer:(BOOL)flag {
     self = [super initWithContentRect:contentRect styleMask:style backing:backingStoreType defer:flag];
     if (self) {
-        self.contentView =[[AppView alloc] init];
         [self setTitle:@"Viewer"];
         [self makeKeyAndOrderFront:nil];
     }
     return self;
-}
-
--(void)awakeFromNib{
-    puts("Awakened from NIB");
-    self.contentView = [[AppView alloc] init];
 }
 
 @end

@@ -1,8 +1,6 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
 #import <Cocoa/Cocoa.h>
-#import "include/AppDelegate.h"
-#import "include/ViewerApp.h"
 #import "include/graphics.h"
 
 int main(int argc, const char * argv[]) {

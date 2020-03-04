@@ -1,6 +1,6 @@
-#import "../include/ViewerApp.h"
-#import "../include/AppWindow.h"
-#import "../include/AppView.h"
+#import "ViewerApp.h"
+#import "AppWindow.h"
+#import "Viewport.h"
 
 @implementation ViewerApp
 -(void) setup {
@@ -16,7 +16,7 @@
                         dequeue:YES];
     [self sendEvent:event];
     
-    AppView* v = [[self keyWindow] contentView];
+//    AppView* v = [[self keyWindow] contentView];
 //    [v callDraw];
     [self updateWindows];
 }

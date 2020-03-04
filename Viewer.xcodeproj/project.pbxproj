@@ -14,7 +14,7 @@
 		5215472E23FFF017009D036B /* MetalPerformanceShaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5215472B23FFF017009D036B /* MetalPerformanceShaders.framework */; };
 		5215472F23FFF017009D036B /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5215472C23FFF017009D036B /* MetalKit.framework */; };
 		5215473023FFF017009D036B /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5215472D23FFF017009D036B /* Metal.framework */; };
-		521547362400431B009D036B /* AppView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 521547342400431B009D036B /* AppView.mm */; };
+		521547362400431B009D036B /* Viewport.mm in Sources */ = {isa = PBXBuildFile; fileRef = 521547342400431B009D036B /* Viewport.mm */; };
 		521547392400436B009D036B /* Renderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 521547372400436B009D036B /* Renderer.mm */; };
 		5215474124005393009D036B /* AppWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 5215474024005393009D036B /* AppWindow.m */; };
 		52154763240081FB009D036B /* ViewerApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 52154762240081FB009D036B /* ViewerApp.m */; };
@@ -44,8 +44,8 @@
 		5215472B23FFF017009D036B /* MetalPerformanceShaders.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalPerformanceShaders.framework; path = System/Library/Frameworks/MetalPerformanceShaders.framework; sourceTree = SDKROOT; };
 		5215472C23FFF017009D036B /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		5215472D23FFF017009D036B /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
-		521547312400431B009D036B /* AppView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppView.h; sourceTree = "<group>"; };
-		521547342400431B009D036B /* AppView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppView.mm; sourceTree = "<group>"; };
+		521547312400431B009D036B /* Viewport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Viewport.h; sourceTree = "<group>"; };
+		521547342400431B009D036B /* Viewport.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Viewport.mm; sourceTree = "<group>"; };
 		521547372400436B009D036B /* Renderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Renderer.mm; sourceTree = "<group>"; };
 		521547382400436B009D036B /* Renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
 		5215473F24005393009D036B /* AppWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppWindow.h; sourceTree = "<group>"; };
@@ -92,7 +92,17 @@
 			isa = PBXGroup;
 			children = (
 				5220C194240C2D59000F58E2 /* include */,
-				5220C195240C2D6D000F58E2 /* src */,
+				52600181241057E80044A438 /* API src */,
+				520C3BF223FF41DA00B634FB /* AppDelegate.h */,
+				52154761240081FB009D036B /* ViewerApp.h */,
+				5215473F24005393009D036B /* AppWindow.h */,
+				521547312400431B009D036B /* Viewport.h */,
+				521547382400436B009D036B /* Renderer.h */,
+				52154762240081FB009D036B /* ViewerApp.m */,
+				520C3BF323FF41E800B634FB /* AppDelegate.mm */,
+				5215474024005393009D036B /* AppWindow.m */,
+				521547342400431B009D036B /* Viewport.mm */,
+				521547372400436B009D036B /* Renderer.mm */,
 				520C3BDD23FF2C7400B634FB /* main.m */,
 				5215472823FFEFE1009D036B /* Metal */,
 				520C3BF623FF491100B634FB /* NIBs */,
@@ -130,27 +140,17 @@
 		5220C194240C2D59000F58E2 /* include */ = {
 			isa = PBXGroup;
 			children = (
-				520C3BF223FF41DA00B634FB /* AppDelegate.h */,
 				5215476424008752009D036B /* graphics.h */,
-				52154761240081FB009D036B /* ViewerApp.h */,
-				521547312400431B009D036B /* AppView.h */,
-				521547382400436B009D036B /* Renderer.h */,
-				5215473F24005393009D036B /* AppWindow.h */,
 			);
 			path = include;
 			sourceTree = "<group>";
 		};
-		5220C195240C2D6D000F58E2 /* src */ = {
+		52600181241057E80044A438 /* API src */ = {
 			isa = PBXGroup;
 			children = (
 				52154765240087A9009D036B /* graphics.m */,
-				521547372400436B009D036B /* Renderer.mm */,
-				52154762240081FB009D036B /* ViewerApp.m */,
-				521547342400431B009D036B /* AppView.mm */,
-				5215474024005393009D036B /* AppWindow.m */,
-				520C3BF323FF41E800B634FB /* AppDelegate.mm */,
 			);
-			path = src;
+			name = "API src";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -213,7 +213,7 @@
 				52154763240081FB009D036B /* ViewerApp.m in Sources */,
 				520C3BF423FF41E800B634FB /* AppDelegate.mm in Sources */,
 				5215472A23FFEFF0009D036B /* shader.metal in Sources */,
-				521547362400431B009D036B /* AppView.mm in Sources */,
+				521547362400431B009D036B /* Viewport.mm in Sources */,
 				5215474124005393009D036B /* AppWindow.m in Sources */,
 				521547392400436B009D036B /* Renderer.mm in Sources */,
 				5215476624008E2F009D036B /* graphics.m in Sources */,
