@@ -27,12 +27,41 @@ enum DispatchType {
     Concurrent, Serial
 };
 
+enum BarrierScope {
+    Buffers, Textures, RenderTargets
+};
+
+enum RenderStage {
+    Vertex, Fragment
+};
+
+enum PrimitiveType {
+    Point, Line, LineStrip, Triangle, TriangleStrip
+};
+
+enum IndexType {
+    UINT16, UINT32
+};
+
 #ifdef __OBJC__
-template <typename T>
-inline constexpr NSUInteger GetEnum(T arg);
+template <typename T, typename U>
+inline constexpr U GetEnum(T arg);
 
 template <>
-inline constexpr NSUInteger GetEnum<StorageMode>(StorageMode mode) {
+inline constexpr MTLBarrierScope GetEnum<BarrierScope, MTLBarrierScope>(BarrierScope scope) {
+    switch (scope) {
+        case Buffers:
+            return MTLBarrierScopeBuffers;
+        case Textures:
+            return MTLBarrierScopeTextures;
+        case RenderTargets:
+            return MTLBarrierScopeRenderTargets;
+    }
+    return MTLBarrierScopeBuffers;
+}
+
+template <>
+inline constexpr MTLResourceOptions GetEnum<StorageMode, MTLResourceOptions>(StorageMode mode) {
     switch (mode) {
         case Shared:
             return MTLResourceStorageModeShared;
@@ -41,12 +70,39 @@ inline constexpr NSUInteger GetEnum<StorageMode>(StorageMode mode) {
         case Private:
             return MTLResourceStorageModePrivate;
     }
-    return -1;
+    return MTLResourceStorageModeShared;
 }
 
 template <>
-inline constexpr NSUInteger GetEnum<DispatchType>(DispatchType type) {
+inline constexpr MTLDispatchType GetEnum<DispatchType, MTLDispatchType>(DispatchType type) {
     return type == Concurrent ? MTLDispatchTypeConcurrent : MTLDispatchTypeSerial;
+}
+
+template <>
+inline constexpr MTLRenderStages GetEnum<RenderStage,MTLRenderStages>(RenderStage stage) {
+    return stage == Vertex ? MTLRenderStageVertex : MTLRenderStageFragment;
+}
+
+template <>
+inline constexpr MTLPrimitiveType GetEnum<PrimitiveType, MTLPrimitiveType>(PrimitiveType type) {
+    switch (type) {
+        case Point:
+            return MTLPrimitiveTypePoint;
+        case Line:
+            return MTLPrimitiveTypeLine;
+        case LineStrip:
+            return MTLPrimitiveTypeLineStrip;
+        case Triangle:
+            return MTLPrimitiveTypeTriangle;
+        case TriangleStrip:
+            return MTLPrimitiveTypeTriangleStrip;
+    }
+    return MTLPrimitiveTypeTriangle;
+}
+
+template <>
+inline constexpr MTLIndexType GetEnum<IndexType, MTLIndexType>(IndexType type) {
+    return type == UINT16 ? MTLIndexTypeUInt16 : MTLIndexTypeUInt32;
 }
 #endif /* __OBJC__ **/
 
@@ -90,6 +146,7 @@ DEF_WRAPPER(ComputePipelineState)
 DEF_WRAPPER(ComputeCommandEncoder)
 DEF_WRAPPER(RenderPipelineState)
 DEF_WRAPPER(RenderCommandEncoder)
+DEF_WRAPPER(BlitCommandEncoder)
 DEF_WRAPPER(Texture) // TODO
 
 struct Buffer : public MetalObject {
@@ -149,21 +206,31 @@ public:
     
     static CommandQueue createCommandQueue(Device const& device);
     static Library compileLibrary(Device const& device, char const* metal_code, bool fast_math);
-    static Function getKernel(char const* kernel_name, Library const& library); //MTLFunction
-    static CommandBuffer getCommandBuffer(CommandQueue const& command_queue); // MTLCommandBuffer
-    static ComputePipelineState createComputeState(Device const& device, Function const& kernel); // MTLComputePipelineState
+    static Function getKernel(char const* kernel_name, Library const& library);
+    static CommandBuffer getCommandBuffer(CommandQueue const& command_queue);
+    static ComputePipelineState createComputeState(Device const& device, Function const& kernel);
     static RenderPipelineState createRenderState(void* view,
                                                  Library const& library,
                                                  Device const& device,
                                                  char const* vertex,
                                                  char const* fragment);
-    static ComputeCommandEncoder getCommandEncoder(CommandBuffer const& buffer, DispatchType mode);
-    static RenderCommandEncoder getCommandEncoder(void* view,
+    static ComputeCommandEncoder getComputeCommandEncoder(CommandBuffer const& buffer, DispatchType mode);
+    static RenderCommandEncoder getRenderCommandEncoder(void* view,
                                                   CommandBuffer const& buffer,
                                                   Texture const &texture,
                                                   RenderPipelineState const &state,
                                                   int samples,
                                                   float const** sample_pos);
+    static BlitCommandEncoder getBlitCommandEncoder(CommandBuffer const& buffer);
+    static void bufferToBuffer(BlitCommandEncoder const& encoder,
+                               Buffer const& src, unsigned long src_offset,
+                               Buffer const& dst, unsigned long dst_offset, unsigned long size);
+    static void setBuffer(BlitCommandEncoder const& encoder,
+                          Buffer const& buffer, unsigned long start,
+                           unsigned long size, unsigned char byte);
+    static void syncResource(BlitCommandEncoder const& encoder, Buffer const& resource);
+    static void syncResource(BlitCommandEncoder const& encoder, Texture const& resource);
+    
     static void endEncoding(ComputeCommandEncoder &encoder);
     static void endEncoding(RenderCommandEncoder &encoder);
     static void dispatchThreads(ComputeCommandEncoder const &encoder,
@@ -188,9 +255,19 @@ public:
     static double getTime();
     static void presentDrawable(void* view, CommandBuffer const& command_buffer, double at_time);
     static void commitCommandBuffer(CommandBuffer const& command_buffer);
+#define ULONG unsigned long
+    static void drawMesh(RenderCommandEncoder const& encoder, PrimitiveType type, ULONG vert_start,
+                         ULONG vert_count, ULONG instances = 1, ULONG instance_base = 0);
+    static void drawMesh(RenderCommandEncoder const& encoder, PrimitiveType type,
+                         ULONG idx_count, IndexType idx_type, Buffer const& idx, ULONG buffer_offset,
+                         ULONG instances = 1, ULONG vert_base = 0, ULONG instance_base = 0);
+    
+    
+    
+#undef ULONG
 };
 
 }
-
+#undef DEF_WRAPPER
 #endif /* metal_api_h */
 

@@ -124,19 +124,19 @@ RenderPipelineState Metal_API::createRenderState(void* view,
 }
 
 
-ComputeCommandEncoder Metal_API::getCommandEncoder(CommandBuffer const& buffer, DispatchType mode) {
+ComputeCommandEncoder Metal_API::getComputeCommandEncoder(CommandBuffer const& buffer, DispatchType mode) {
     id<MTLComputeCommandEncoder> encoder = [(__bridge id<MTLCommandBuffer>)(buffer._ptr)
                                             computeCommandEncoder];
     auto ptr = (void*)CFBridgingRetain(encoder);
     return ComputeCommandEncoder(ptr);
 }
 
-RenderCommandEncoder Metal_API::getCommandEncoder(void* view,
+RenderCommandEncoder Metal_API::getRenderCommandEncoder(void* view,
                                                   CommandBuffer const& buffer,
                                                   Texture const &texture,
                                                   RenderPipelineState const &state,
-                                                  int const samples,
-                                                  float const** sample_pos) {
+                                                  int const samples = 4,
+                                                  float const** sample_pos = nullptr) {
     @autoreleasepool {
         auto v = (__bridge MTKView*)(view);
         auto rpd = v.currentRenderPassDescriptor;
@@ -145,16 +145,29 @@ RenderCommandEncoder Metal_API::getCommandEncoder(void* view,
         rpd.colorAttachments[0].loadAction = MTLLoadActionClear;
         rpd.colorAttachments[0].clearColor = MTLClearColorMake(0, 0, 0, 1);
         rpd.colorAttachments[0].storeAction = MTLStoreActionMultisampleResolve;
-        MTLSamplePosition samplePositions[samples];
-        for (int i = 0; i < samples; ++i)
-            samplePositions[i] = MTLSamplePositionMake(sample_pos[i][0], sample_pos[i][1]);
-        
-        [rpd setSamplePositions:samplePositions count:samples];
+        if (!sample_pos)  {
+            MTLSamplePosition samplePositions[4];
+            float const pos[4][2] = {{0.25,0.75},{0.75,0.75},{0.25,0.25},{0.75,0.25}};
+            for (int i = 0; i < 4; ++i)
+                samplePositions[i] = MTLSamplePositionMake(sample_pos[i][0], pos[i][1]);
+            [rpd setSamplePositions:samplePositions count:4];
+        } else {
+            MTLSamplePosition samplePositions[samples];
+            for (int i = 0; i < samples; ++i)
+                samplePositions[i] = MTLSamplePositionMake(sample_pos[i][0], sample_pos[i][1]);
+            [rpd setSamplePositions:samplePositions count:samples];
+        }
         auto encoder = [(__bridge id<MTLCommandBuffer>)(buffer._ptr)
                         renderCommandEncoderWithDescriptor:rpd];
         auto ptr = (void*)CFBridgingRetain(encoder);
         return RenderCommandEncoder(ptr);
     }
+}
+
+BlitCommandEncoder Metal_API::getBlitCommandEncoder(CommandBuffer const& buffer) {
+    auto encoder = [(__bridge id<MTLCommandBuffer>)(buffer._ptr) blitCommandEncoder];
+    auto ptr = (void*)CFBridgingRetain(encoder);
+    return BlitCommandEncoder(ptr);
 }
 
 void Metal_API::endEncoding(ComputeCommandEncoder &encoder) {
@@ -182,6 +195,34 @@ unsigned long Metal_API::maxWarpSize(ComputePipelineState const& state) {
     return [(__bridge id<MTLComputePipelineState>)(state._ptr) threadExecutionWidth];
 }
 
+void Metal_API::bufferToBuffer(BlitCommandEncoder const& encoder,
+               Buffer const& src, unsigned long src_offset,
+                               Buffer const& dst, unsigned long dst_offset, unsigned long size) {
+    [(__bridge id<MTLBlitCommandEncoder>)(encoder._ptr)
+     copyFromBuffer:(__bridge id<MTLBuffer>)(src._ptr)
+     sourceOffset:src_offset
+     toBuffer:(__bridge id<MTLBuffer>)(dst._ptr)
+     destinationOffset:dst_offset
+     size:size];
+}
+void Metal_API::setBuffer(BlitCommandEncoder const& encoder,
+                          Buffer const& buffer, unsigned long start,
+                           unsigned long size, unsigned char byte) {
+    [(__bridge id<MTLBlitCommandEncoder>)(encoder._ptr)
+     fillBuffer:(__bridge id<MTLBuffer>)(buffer._ptr)
+     range:NSMakeRange(start, size)
+     value:byte];
+}
+void Metal_API::syncResource(BlitCommandEncoder const& encoder, Buffer const& resource) {
+    [(__bridge id<MTLBlitCommandEncoder>)(encoder._ptr)
+     synchronizeResource:(__bridge id<MTLBuffer>)(resource._ptr)];
+}
+
+void Metal_API::syncResource(BlitCommandEncoder const& encoder, Texture const& resource) {
+    [(__bridge id<MTLBlitCommandEncoder>)(encoder._ptr)
+     synchronizeResource:(__bridge id<MTLTexture>)(resource._ptr)];
+}
+
 Buffer Metal_API::mallocBuffer(Device const &device, void const* data,
                                unsigned long size, StorageMode mode) {
     if (mode == Private) {
@@ -193,7 +234,7 @@ Buffer Metal_API::mallocBuffer(Device const &device, void const* data,
     id <MTLBuffer> buf = [(__bridge id <MTLDevice>)(device._ptr)
                           newBufferWithBytes:data
                           length:size
-                          options:GetEnum(mode)];
+                          options:GetEnum<StorageMode, MTLResourceOptions>(mode)];
     auto ptr = (void*)CFBridgingRetain(buf);
     return Buffer(ptr, [buf contents], size, mode);
 }
@@ -201,7 +242,7 @@ Buffer Metal_API::mallocBuffer(Device const &device, void const* data,
 Buffer Metal_API::mallocBuffer(Device const &device, unsigned long size, StorageMode mode) {
     id <MTLBuffer> buf = [(__bridge id <MTLDevice>)(device._ptr)
                           newBufferWithLength:size
-                          options:GetEnum(mode)];
+                          options:GetEnum<StorageMode, MTLResourceOptions>(mode)];
     auto ptr = (void*)CFBridgingRetain(buf);
     return Buffer(ptr, mode == Private ? nullptr : [buf contents], size, mode);
 }
@@ -266,3 +307,29 @@ void Metal_API::presentDrawable(void* view, CommandBuffer const& command_buffer,
 void Metal_API::commitCommandBuffer(CommandBuffer const& command_buffer) {
     [(__bridge id <MTLCommandBuffer>)(command_buffer._ptr) commit];
 }
+
+#define ULONG unsigned long
+void Metal_API::drawMesh(RenderCommandEncoder const& encoder, PrimitiveType type, ULONG vert_start, ULONG vert_count, ULONG instances, ULONG instance_base) {
+    auto enc = (__bridge id<MTLRenderCommandEncoder>)(encoder._ptr);
+
+    [enc drawPrimitives:GetEnum<PrimitiveType, MTLPrimitiveType>(type)
+            vertexStart:vert_start
+            vertexCount:vert_count
+          instanceCount:instances
+           baseInstance:instance_base];
+    
+}
+void Metal_API::drawMesh(RenderCommandEncoder const& encoder, PrimitiveType type, ULONG idx_count, IndexType idx_type, Buffer const& idx, ULONG idx_offset, ULONG instances, ULONG vert_base, ULONG instance_base) {
+    auto enc = (__bridge id<MTLRenderCommandEncoder>)(encoder._ptr);
+    auto indices = (__bridge id<MTLBuffer>)(idx._ptr);
+    [enc drawIndexedPrimitives:GetEnum<PrimitiveType, MTLPrimitiveType>(type)
+                    indexCount:idx_count
+                     indexType:GetEnum<IndexType, MTLIndexType>(idx_type)
+                   indexBuffer:indices
+             indexBufferOffset:idx_offset
+                 instanceCount:instances
+                    baseVertex:vert_base
+                  baseInstance:instance_base];
+    
+}
+#undef ULONG
