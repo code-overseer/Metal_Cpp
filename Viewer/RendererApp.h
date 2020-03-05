@@ -2,7 +2,7 @@
 #define ViewApp_h
 #import <Cocoa/Cocoa.h>
 
-@interface ViewerApp : NSApplication
+@interface RendererApp : NSApplication
 
 @property BOOL shouldKeepRunning;
 - (void) setup;

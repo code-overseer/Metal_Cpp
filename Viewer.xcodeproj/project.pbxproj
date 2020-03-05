@@ -14,11 +14,11 @@
 		5215472E23FFF017009D036B /* MetalPerformanceShaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5215472B23FFF017009D036B /* MetalPerformanceShaders.framework */; };
 		5215472F23FFF017009D036B /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5215472C23FFF017009D036B /* MetalKit.framework */; };
 		5215473023FFF017009D036B /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5215472D23FFF017009D036B /* Metal.framework */; };
-		521547362400431B009D036B /* Viewport.mm in Sources */ = {isa = PBXBuildFile; fileRef = 521547342400431B009D036B /* Viewport.mm */; };
-		521547392400436B009D036B /* Renderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 521547372400436B009D036B /* Renderer.mm */; };
+		521547392400436B009D036B /* ViewportDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 521547372400436B009D036B /* ViewportDelegate.mm */; };
 		5215474124005393009D036B /* AppWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 5215474024005393009D036B /* AppWindow.m */; };
-		52154763240081FB009D036B /* ViewerApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 52154762240081FB009D036B /* ViewerApp.m */; };
+		52154763240081FB009D036B /* RendererApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 52154762240081FB009D036B /* RendererApp.m */; };
 		5215476624008E2F009D036B /* graphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 52154765240087A9009D036B /* graphics.m */; };
+		5244399A24114E9200018251 /* Metal_API.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5244399924114E9200018251 /* Metal_API.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -44,16 +44,16 @@
 		5215472B23FFF017009D036B /* MetalPerformanceShaders.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalPerformanceShaders.framework; path = System/Library/Frameworks/MetalPerformanceShaders.framework; sourceTree = SDKROOT; };
 		5215472C23FFF017009D036B /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		5215472D23FFF017009D036B /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
-		521547312400431B009D036B /* Viewport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Viewport.h; sourceTree = "<group>"; };
-		521547342400431B009D036B /* Viewport.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Viewport.mm; sourceTree = "<group>"; };
-		521547372400436B009D036B /* Renderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Renderer.mm; sourceTree = "<group>"; };
-		521547382400436B009D036B /* Renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
+		521547372400436B009D036B /* ViewportDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewportDelegate.mm; sourceTree = "<group>"; };
+		521547382400436B009D036B /* ViewportDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewportDelegate.h; sourceTree = "<group>"; };
 		5215473F24005393009D036B /* AppWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppWindow.h; sourceTree = "<group>"; };
 		5215474024005393009D036B /* AppWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppWindow.m; sourceTree = "<group>"; };
-		52154761240081FB009D036B /* ViewerApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewerApp.h; sourceTree = "<group>"; };
-		52154762240081FB009D036B /* ViewerApp.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewerApp.m; sourceTree = "<group>"; };
+		52154761240081FB009D036B /* RendererApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RendererApp.h; sourceTree = "<group>"; };
+		52154762240081FB009D036B /* RendererApp.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RendererApp.m; sourceTree = "<group>"; };
 		5215476424008752009D036B /* graphics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = graphics.h; sourceTree = "<group>"; };
 		52154765240087A9009D036B /* graphics.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = graphics.m; sourceTree = "<group>"; };
+		5244399924114E9200018251 /* Metal_API.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Metal_API.mm; sourceTree = "<group>"; };
+		5244399B24114E9D00018251 /* Metal_API.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Metal_API.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,15 +94,13 @@
 				5220C194240C2D59000F58E2 /* include */,
 				52600181241057E80044A438 /* API src */,
 				520C3BF223FF41DA00B634FB /* AppDelegate.h */,
-				52154761240081FB009D036B /* ViewerApp.h */,
+				52154761240081FB009D036B /* RendererApp.h */,
 				5215473F24005393009D036B /* AppWindow.h */,
-				521547312400431B009D036B /* Viewport.h */,
-				521547382400436B009D036B /* Renderer.h */,
-				52154762240081FB009D036B /* ViewerApp.m */,
+				521547382400436B009D036B /* ViewportDelegate.h */,
+				52154762240081FB009D036B /* RendererApp.m */,
 				520C3BF323FF41E800B634FB /* AppDelegate.mm */,
 				5215474024005393009D036B /* AppWindow.m */,
-				521547342400431B009D036B /* Viewport.mm */,
-				521547372400436B009D036B /* Renderer.mm */,
+				521547372400436B009D036B /* ViewportDelegate.mm */,
 				520C3BDD23FF2C7400B634FB /* main.m */,
 				5215472823FFEFE1009D036B /* Metal */,
 				520C3BF623FF491100B634FB /* NIBs */,
@@ -140,6 +138,7 @@
 		5220C194240C2D59000F58E2 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				5244399B24114E9D00018251 /* Metal_API.h */,
 				5215476424008752009D036B /* graphics.h */,
 			);
 			path = include;
@@ -148,6 +147,7 @@
 		52600181241057E80044A438 /* API src */ = {
 			isa = PBXGroup;
 			children = (
+				5244399924114E9200018251 /* Metal_API.mm */,
 				52154765240087A9009D036B /* graphics.m */,
 			);
 			name = "API src";
@@ -210,12 +210,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52154763240081FB009D036B /* ViewerApp.m in Sources */,
+				5244399A24114E9200018251 /* Metal_API.mm in Sources */,
+				52154763240081FB009D036B /* RendererApp.m in Sources */,
 				520C3BF423FF41E800B634FB /* AppDelegate.mm in Sources */,
 				5215472A23FFEFF0009D036B /* shader.metal in Sources */,
-				521547362400431B009D036B /* Viewport.mm in Sources */,
 				5215474124005393009D036B /* AppWindow.m in Sources */,
-				521547392400436B009D036B /* Renderer.mm in Sources */,
+				521547392400436B009D036B /* ViewportDelegate.mm in Sources */,
 				5215476624008E2F009D036B /* graphics.m in Sources */,
 				520C3BDE23FF2C7400B634FB /* main.m in Sources */,
 			);
