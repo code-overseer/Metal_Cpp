@@ -9,15 +9,15 @@
 /* Begin PBXBuildFile section */
 		520C3BDE23FF2C7400B634FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 520C3BDD23FF2C7400B634FB /* main.m */; };
 		520C3BE623FF2CDA00B634FB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 520C3BE523FF2CDA00B634FB /* Cocoa.framework */; };
-		520C3BF423FF41E800B634FB /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 520C3BF323FF41E800B634FB /* AppDelegate.mm */; };
+		520C3BF423FF41E800B634FB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 520C3BF323FF41E800B634FB /* AppDelegate.m */; };
 		5215472A23FFEFF0009D036B /* shader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 5215472923FFEFF0009D036B /* shader.metal */; };
 		5215472E23FFF017009D036B /* MetalPerformanceShaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5215472B23FFF017009D036B /* MetalPerformanceShaders.framework */; };
 		5215472F23FFF017009D036B /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5215472C23FFF017009D036B /* MetalKit.framework */; };
 		5215473023FFF017009D036B /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5215472D23FFF017009D036B /* Metal.framework */; };
 		521547392400436B009D036B /* ViewportDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 521547372400436B009D036B /* ViewportDelegate.mm */; };
 		5215474124005393009D036B /* AppWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 5215474024005393009D036B /* AppWindow.m */; };
-		52154763240081FB009D036B /* RendererApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 52154762240081FB009D036B /* RendererApp.m */; };
-		5215476624008E2F009D036B /* graphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 52154765240087A9009D036B /* graphics.m */; };
+		52154763240081FB009D036B /* RendererApp.mm in Sources */ = {isa = PBXBuildFile; fileRef = 52154762240081FB009D036B /* RendererApp.mm */; };
+		5215476624008E2F009D036B /* Cocoa_API.m in Sources */ = {isa = PBXBuildFile; fileRef = 52154765240087A9009D036B /* Cocoa_API.m */; };
 		5244399A24114E9200018251 /* Metal_API.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5244399924114E9200018251 /* Metal_API.mm */; };
 /* End PBXBuildFile section */
 
@@ -39,7 +39,7 @@
 		520C3BE523FF2CDA00B634FB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		520C3BF123FF397C00B634FB /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		520C3BF223FF41DA00B634FB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		520C3BF323FF41E800B634FB /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
+		520C3BF323FF41E800B634FB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		5215472923FFEFF0009D036B /* shader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = shader.metal; sourceTree = "<group>"; };
 		5215472B23FFF017009D036B /* MetalPerformanceShaders.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalPerformanceShaders.framework; path = System/Library/Frameworks/MetalPerformanceShaders.framework; sourceTree = SDKROOT; };
 		5215472C23FFF017009D036B /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
@@ -49,9 +49,9 @@
 		5215473F24005393009D036B /* AppWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppWindow.h; sourceTree = "<group>"; };
 		5215474024005393009D036B /* AppWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppWindow.m; sourceTree = "<group>"; };
 		52154761240081FB009D036B /* RendererApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RendererApp.h; sourceTree = "<group>"; };
-		52154762240081FB009D036B /* RendererApp.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RendererApp.m; sourceTree = "<group>"; };
-		5215476424008752009D036B /* graphics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = graphics.h; sourceTree = "<group>"; };
-		52154765240087A9009D036B /* graphics.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = graphics.m; sourceTree = "<group>"; };
+		52154762240081FB009D036B /* RendererApp.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = RendererApp.mm; sourceTree = "<group>"; };
+		5215476424008752009D036B /* Cocoa_API.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Cocoa_API.h; sourceTree = "<group>"; };
+		52154765240087A9009D036B /* Cocoa_API.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Cocoa_API.m; sourceTree = "<group>"; };
 		5244399924114E9200018251 /* Metal_API.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Metal_API.mm; sourceTree = "<group>"; };
 		5244399B24114E9D00018251 /* Metal_API.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Metal_API.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -97,10 +97,10 @@
 				52154761240081FB009D036B /* RendererApp.h */,
 				5215473F24005393009D036B /* AppWindow.h */,
 				521547382400436B009D036B /* ViewportDelegate.h */,
-				52154762240081FB009D036B /* RendererApp.m */,
-				520C3BF323FF41E800B634FB /* AppDelegate.mm */,
-				5215474024005393009D036B /* AppWindow.m */,
+				52154762240081FB009D036B /* RendererApp.mm */,
 				521547372400436B009D036B /* ViewportDelegate.mm */,
+				520C3BF323FF41E800B634FB /* AppDelegate.m */,
+				5215474024005393009D036B /* AppWindow.m */,
 				520C3BDD23FF2C7400B634FB /* main.m */,
 				5215472823FFEFE1009D036B /* Metal */,
 				520C3BF623FF491100B634FB /* NIBs */,
@@ -139,7 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				5244399B24114E9D00018251 /* Metal_API.h */,
-				5215476424008752009D036B /* graphics.h */,
+				5215476424008752009D036B /* Cocoa_API.h */,
 			);
 			path = include;
 			sourceTree = "<group>";
@@ -148,7 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				5244399924114E9200018251 /* Metal_API.mm */,
-				52154765240087A9009D036B /* graphics.m */,
+				52154765240087A9009D036B /* Cocoa_API.m */,
 			);
 			name = "API src";
 			sourceTree = "<group>";
@@ -211,12 +211,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				5244399A24114E9200018251 /* Metal_API.mm in Sources */,
-				52154763240081FB009D036B /* RendererApp.m in Sources */,
-				520C3BF423FF41E800B634FB /* AppDelegate.mm in Sources */,
+				52154763240081FB009D036B /* RendererApp.mm in Sources */,
+				520C3BF423FF41E800B634FB /* AppDelegate.m in Sources */,
 				5215472A23FFEFF0009D036B /* shader.metal in Sources */,
 				5215474124005393009D036B /* AppWindow.m in Sources */,
 				521547392400436B009D036B /* ViewportDelegate.mm in Sources */,
-				5215476624008E2F009D036B /* graphics.m in Sources */,
+				5215476624008E2F009D036B /* Cocoa_API.m in Sources */,
 				520C3BDE23FF2C7400B634FB /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,5 +1,5 @@
-#ifndef Renderer_h
-#define Renderer_h
+#ifndef ViewportDelegate_H
+#define ViewportDelegate_H
 
 #import <MetalKit/MetalKit.h>
 #import <simd/simd.h>

@@ -4,8 +4,8 @@ project(Viewer)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -x objective-c")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
 
-	file( GLOB HEADER_FILES include/*.h )
-	file( GLOB SOURCE_FILES src/*.m src/*.mm )
+	file( GLOB HEADER_FILES *.h )
+	file( GLOB SOURCE_FILES *.m *.mm )
 
 	set(XIB_FILES
 	    ./MainMenu.xib
@@ -16,9 +16,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
 
 	add_library(${PROJECT_NAME} STATIC
 	    ${HEADER_FILES}
-	    ${SOURCE_FILES}
-	    ${XIB_FILES}
-	    ${SHADERS})
+	    ${SOURCE_FILES})
 	target_link_libraries(${PROJECT_NAME}
 	    "-framework Cocoa"
 	    "-framework Metal"

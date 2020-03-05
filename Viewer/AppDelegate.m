@@ -2,7 +2,6 @@
 #import "AppDelegate.h"
 #import "AppWindow.h"
 #include "ViewportDelegate.h"
-#include "include/graphics.h"
 
 @implementation AppDelegate
 {
@@ -27,7 +26,6 @@
     _view =[[MTKView alloc] init];
     [window setContentView:_view];
     _renderer = [[ViewportDelegate alloc] initWithMetalKitView:_view];
-    [_renderer mtkView:_view drawableSizeWillChange:_view.drawableSize];
     
     //    [NSEvent addLocalMonitorForEventsMatchingMask:NSEventMaskScrollWheel handler:^NSEvent * _Nullable(NSEvent * event) {
     //        float f = cam.zoom() + simd_clamp(-event.scrollingDeltaY/100, -1, 1);

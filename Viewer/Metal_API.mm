@@ -3,7 +3,7 @@
 #import <MetalKit/MetalKit.h>
 #import <Metal/Metal.h>
 #import <MetalPerformanceShaders/MetalPerformanceShaders.h>
-#import "../include/Metal_API.h"
+#import "include/Metal_API.h"
 using namespace mtl_cpp;
 
 void MetalObject::_free() {
@@ -42,12 +42,16 @@ void Metal_API::terminateContext() {
     _context = nullptr;
 }
 
+void Metal_API::initialize(void* view) {
+    if (_context) _context->onInitialize(view);
+}
+
 void Metal_API::draw(void* view) {
-    if (!_context) _context->onDraw(view);
+    if (_context) _context->onDraw(view);
 }
 
 void Metal_API::resize(void *view, float const size[2]) {
-    if (!_context) _context->onSizeChange(view, size);
+    if (_context) _context->onSizeChange(view, size);
 }
 
 Device Metal_API::getDevice() {
@@ -155,8 +159,8 @@ ComputeCommandEncoder Metal_API::getComputeCommandEncoder(CommandBuffer const& b
 RenderCommandEncoder Metal_API::getRenderCommandEncoder(void* view,
                                                         CommandBuffer const& buffer,
                                                         Texture const &texture,
-                                                        int const samples = 4,
-                                                        float const** sample_pos = nullptr) {
+                                                        int const samples,
+                                                        float const* sample_pos[]) {
     @autoreleasepool {
         auto v = (__bridge MTKView*)(view);
         auto rpd = v.currentRenderPassDescriptor;

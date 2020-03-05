@@ -3,9 +3,7 @@
 #ifdef __OBJC__
 #import <Metal/Metal.h>
 #import <MetalKit/MetalKit.h>
-#import <simd/simd.h>
 #import <MetalPerformanceShaders/MetalPerformanceShaders.h>
-#import <Foundation/Foundation.h>
 #endif
 
 #include <algorithm>
@@ -116,6 +114,7 @@ protected:
     }
     MetalObject() = default;
 public:
+    bool isEmpty() const { return !_ptr; }
     MetalObject ( MetalObject const& other) = delete;
     virtual ~MetalObject() { _free(); }
 };
@@ -123,6 +122,7 @@ public:
 #define DEF_WRAPPER(TYPE) \
 struct TYPE : public MetalObject { \
 TYPE(TYPE &&other) noexcept : MetalObject(std::move(other)) {} \
+TYPE() = default; \
 TYPE& operator=(TYPE &&other) noexcept { \
 if (this == &other) return *this; \
 _free(); \
@@ -150,8 +150,9 @@ DEF_WRAPPER(Texture) // TODO
 struct Buffer : public MetalObject {
 private:
     void* raw_ = nullptr;
-    unsigned long length_;
-    ResourceOptions mode_;
+    unsigned long length_ = 0;
+    ResourceOptions mode_ = Shared;
+    Buffer() = default;
     Buffer(void*& p, void* contents, unsigned long size, ResourceOptions mode) : MetalObject(p), raw_(contents), length_(size), mode_(mode) {
         p = nullptr;
     }
@@ -205,8 +206,10 @@ public:
     Metal_API& operator=(Metal_API &&) = delete;
     /* Do NOT call this from cpp, it closes connection to Obj-C */
     static void terminateContext();
+    static void initialize(void* view);
     static void draw(void* view);
     static void resize(void* view, float const size[2]);
+    virtual void onInitialize(void* view) = 0;
     virtual void onDraw(void* view) = 0;
     virtual void onSizeChange(void* view, float const size[2]) = 0;
     virtual ~Metal_API();
@@ -226,8 +229,8 @@ public:
     static RenderCommandEncoder getRenderCommandEncoder(void* view,
                                                         CommandBuffer const& buffer,
                                                         Texture const &texture,
-                                                        int samples,
-                                                        float const** sample_pos);
+                                                        int samples = 4,
+                                                        float const* sample_pos[] = nullptr);
     static BlitCommandEncoder getBlitCommandEncoder(CommandBuffer const& buffer);
     static void setState(RenderCommandEncoder const& encoder, RenderPipelineState const &state);
     static void setState(ComputeCommandEncoder const& encoder, ComputePipelineState const &state);

@@ -1,6 +1,6 @@
 #import "RendererApp.h"
-#import "AppWindow.h"
 #import <MetalKit/MetalKit.h>
+#import "include/Metal_API.h"
 
 @interface RendererApp()
 -(void) processNextEvent;
@@ -26,7 +26,7 @@
 }
 
 -(void) update {
-    if (_startup && !self.windows.count) _shouldKeepRunning = NO;
+    if (_startup && !self.windows.count) [self terminate:nil];
     if (!_shouldKeepRunning) return;
     
     [self processNextEvent];
@@ -37,6 +37,7 @@
 -(void) terminate:(id)sender
 {
     _shouldKeepRunning = false;
+    mtl_cpp::Metal_API::terminateContext();
     for (NSWindow* window in self.windows) {
         [window close];
     }

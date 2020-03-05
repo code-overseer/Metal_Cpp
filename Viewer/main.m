@@ -1,12 +1,12 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
 #import <Cocoa/Cocoa.h>
-#import "include/graphics.h"
+#import "include/Cocoa_API.h"
 
 int main(int argc, const char * argv[]) {
     launch_app();
     bool u = true;
-//    update_view(&u);
+
     CFTimeInterval startTime = CACurrentMediaTime();
     while (u) {
         if (CACurrentMediaTime() - startTime < 0.016667) continue;

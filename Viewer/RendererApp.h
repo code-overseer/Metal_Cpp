@@ -1,5 +1,5 @@
-#ifndef ViewApp_h
-#define ViewApp_h
+#ifndef RendererApp_h
+#define RendererApp_h
 #import <Cocoa/Cocoa.h>
 
 @interface RendererApp : NSApplication

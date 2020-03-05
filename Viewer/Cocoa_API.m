@@ -3,7 +3,7 @@
 #import <simd/simd.h>
 #import "AppDelegate.h"
 #import "RendererApp.h"
-#import "graphics.h"
+#import "include/Cocoa_API.h"
 
 void launch_app() {
     RendererApp* app = [RendererApp sharedApplication];
