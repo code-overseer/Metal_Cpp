@@ -50,7 +50,7 @@ void Metal_API::draw(void* view) {
     if (_context) _context->onDraw(view);
 }
 
-void Metal_API::resize(void *view, float const size[2]) {
+void Metal_API::resize(void *view, unsigned long const size[2]) {
     if (_context) _context->onSizeChange(view, size);
 }
 

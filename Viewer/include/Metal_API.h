@@ -147,17 +147,19 @@ DEF_WRAPPER(RenderCommandEncoder)
 DEF_WRAPPER(BlitCommandEncoder)
 DEF_WRAPPER(Texture) // TODO
 
+#undef DEF_WRAPPER
+
 struct Buffer : public MetalObject {
 private:
     void* raw_ = nullptr;
     unsigned long length_ = 0;
     ResourceOptions mode_ = Shared;
-    Buffer() = default;
     Buffer(void*& p, void* contents, unsigned long size, ResourceOptions mode) : MetalObject(p), raw_(contents), length_(size), mode_(mode) {
         p = nullptr;
     }
 public:
     friend class Metal_API;
+    Buffer() = default;
     Buffer ( Buffer const &other ) = delete;
     Buffer ( Buffer &&other ) noexcept : MetalObject(std::move(other)) {
         raw_ = other.raw_;
@@ -193,6 +195,7 @@ public:
     ~Buffer() { raw_ = nullptr; length_ = 0; }
 };
 
+#define ULONG unsigned long
 struct Metal_API {
 private:
     static Metal_API* _context;
@@ -208,10 +211,10 @@ public:
     static void terminateContext();
     static void initialize(void* view);
     static void draw(void* view);
-    static void resize(void* view, float const size[2]);
+    static void resize(void* view, ULONG const size[2]);
     virtual void onInitialize(void* view) = 0;
     virtual void onDraw(void* view) = 0;
-    virtual void onSizeChange(void* view, float const size[2]) = 0;
+    virtual void onSizeChange(void* view, ULONG const size[2]) = 0;
     virtual ~Metal_API();
     static Device getDevice();
     static CommandQueue createCommandQueue(Device const& device);
@@ -236,36 +239,34 @@ public:
     static void setState(ComputeCommandEncoder const& encoder, ComputePipelineState const &state);
     
     static void bufferToBuffer(BlitCommandEncoder const& encoder,
-                               Buffer const& src, unsigned long src_offset,
-                               Buffer const& dst, unsigned long dst_offset, unsigned long size);
-    static void setBuffer(BlitCommandEncoder const& encoder,
-                          Buffer const& buffer, unsigned long start,
-                          unsigned long size, unsigned char byte);
+                               Buffer const& src, ULONG src_offset,
+                               Buffer const& dst, ULONG dst_offset, ULONG size);
+    static void setBuffer(BlitCommandEncoder const& encoder, Buffer const& buffer,
+                          ULONG start, ULONG size, unsigned char byte);
     static void syncResource(BlitCommandEncoder const& encoder, Buffer const& resource);
     static void syncResource(BlitCommandEncoder const& encoder, Texture const& resource);
     
     static void endEncoding(ComputeCommandEncoder &encoder);
     static void endEncoding(RenderCommandEncoder &encoder);
-    static void dispatchThreads(ComputeCommandEncoder const &encoder,
-                                unsigned long const global_dim[3],
-                                unsigned long const local_dim[3]);
+    static void dispatchThreads(ComputeCommandEncoder const &encoder, ULONG const global_dim[3],
+                                ULONG const local_dim[3]);
     static void waitUntilScheduled(CommandBuffer const&buffer);
     static void waitUntilCompleted(CommandBuffer const&buffer);
-    static unsigned long maxBlockSize(ComputePipelineState const& compute_pipeline_state);
-    static unsigned long maxWarpSize(ComputePipelineState const& compute_pipeline_state);
+    static ULONG maxBlockSize(ComputePipelineState const& compute_pipeline_state);
+    static ULONG maxWarpSize(ComputePipelineState const& compute_pipeline_state);
     
-    static Buffer mallocBuffer(Device const &device, void const* data, unsigned long size, ResourceOptions mode);
-    static Buffer mallocBuffer(Device const &device, unsigned long size, ResourceOptions mode);
-    static Texture createMultiSamplingTexture(void* view, Device const& device, unsigned long width, unsigned long height, unsigned long samples);
+    static Buffer mallocBuffer(Device const &device, void const* data, ULONG size, ResourceOptions mode);
+    static Buffer mallocBuffer(Device const &device, ULONG size, ResourceOptions mode);
+    static Texture createMultiSamplingTexture(void* view, Device const& device, ULONG width, ULONG height, ULONG samples);
     static void setComputeBuffer(ComputeCommandEncoder const& encoder,
-                                 Buffer const &buffer, unsigned long offset, unsigned long index);
+                                 Buffer const &buffer, ULONG offset, ULONG index);
     static void setVertexBuffer(RenderCommandEncoder const& encoder,
-                                Buffer const &buffer, unsigned long offset, unsigned long index);
+                                Buffer const &buffer, ULONG offset, ULONG index);
     static void setFragmentBuffer(RenderCommandEncoder const& encoder,
-                                  Buffer const &buffer, unsigned long offset, unsigned long index);
+                                  Buffer const &buffer, ULONG offset, ULONG index);
     static void setBytes(ComputeCommandEncoder const& encoder,
-                         void const* data, unsigned long size, unsigned long index);
-    static void mallocSharedMemory(ComputeCommandEncoder const& encoder, unsigned long size, unsigned long index);
+                         void const* data, ULONG size, ULONG index);
+    static void mallocSharedMemory(ComputeCommandEncoder const& encoder, ULONG size, ULONG index);
     static void addCompletionHandler(CommandBuffer const& command_buffer,
                                      std::function<void()> on_complete);
     static void addScheduleHandler(CommandBuffer const& command_buffer,
@@ -273,19 +274,16 @@ public:
     static double getTime();
     static void presentDrawable(void* view, CommandBuffer const& command_buffer, double at_time);
     static void commitCommandBuffer(CommandBuffer const& command_buffer);
-#define ULONG unsigned long
+
     static void drawMesh(RenderCommandEncoder const& encoder, PrimitiveType type, ULONG vert_start,
                          ULONG vert_count, ULONG instances = 1, ULONG instance_base = 0);
     static void drawMesh(RenderCommandEncoder const& encoder, PrimitiveType type,
                          ULONG idx_count, IndexType idx_type, Buffer const& idx, ULONG buffer_offset,
                          ULONG instances = 1, ULONG vert_base = 0, ULONG instance_base = 0);
-    
-#undef ULONG
 };
+#undef ULONG
 
 }
 
-
-#undef DEF_WRAPPER
 #endif /* metal_api_h */
 

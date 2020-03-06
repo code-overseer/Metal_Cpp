@@ -78,7 +78,7 @@
 //    tex.usage = MTLTextureUsageRenderTarget;
 //    tex.storageMode = MTLStorageModePrivate;
 //    msaa = [device newTextureWithDescriptor:tex];
-    float s[2]{static_cast<float>(size.width), static_cast<float>(size.height)};
+    unsigned long s[2]{static_cast<unsigned long>(size.width), static_cast<unsigned long>(size.height)};
     mtl_cpp::Metal_API::resize((__bridge void*)(view), s);
 }
 
