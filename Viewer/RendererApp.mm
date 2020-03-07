@@ -9,20 +9,34 @@
 @implementation RendererApp
 {
     BOOL _startup;
+    NSEventMask _mask;
 }
 -(void) processNextEvent {
-    NSEvent* event = [self nextEventMatchingMask:NSEventMaskAny
-                                       untilDate:[NSDate distantFuture]
+    @autoreleasepool {
+        NSEvent* event = [self nextEventMatchingMask:_mask
+                                       untilDate:[NSDate distantPast]
                                           inMode:NSDefaultRunLoopMode
                                          dequeue:YES];
-    [self sendEvent:event];
+        if(event) [self sendEvent:event];
+    }
 }
 
 -(void) setup {
-    [self finishLaunching];
-    _shouldKeepRunning = true;
-    [self processNextEvent]; // to start up window
-    _startup = YES;
+    @autoreleasepool {
+        [self finishLaunching];
+        _shouldKeepRunning = true;
+        _mask = NSEventMaskAppKitDefined | NSEventMaskApplicationDefined | NSEventMaskSystemDefined;
+        _mask |= NSEventMaskMouseMoved | NSEventMaskMouseExited | NSEventMaskMouseEntered;
+        _mask |= NSEventMaskLeftMouseUp | NSEventMaskLeftMouseDown | NSEventMaskMagnify;
+        _mask |= NSEventMaskScrollWheel | NSEventMaskCursorUpdate | NSEventMaskKeyUp | NSEventMaskKeyDown;
+        NSEvent* event = [self nextEventMatchingMask:NSEventMaskAny
+                                           untilDate:[NSDate distantFuture]
+                                              inMode:NSDefaultRunLoopMode
+                                             dequeue:YES];
+        [self sendEvent:event];
+        _startup = YES;
+    }
+    
 }
 
 -(void) update {

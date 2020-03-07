@@ -9,6 +9,8 @@
 //    id <MTLRenderPipelineState> shader;
 //    id <MTLCommandQueue> queue;
 //    id <MTLTexture> msaa;
+//    id <MTLBuffer> v0;
+//    id <MTLBuffer> t0;
 }
 
 -(nonnull instancetype)initWithMetalKitView:(nonnull MTKView *)view {
@@ -19,7 +21,7 @@
         view.device = MTLCreateSystemDefaultDevice();
         view.delegate = self;
         mtl_cpp::Metal_API::initialize((__bridge void*)(view));
-        [self mtkView:view drawableSizeWillChange:view.drawableSize];
+        
 //        device = view.device;
 //        library = [device newDefaultLibrary];
 //        queue = [device newCommandQueue];
@@ -27,16 +29,25 @@
 //        NSError* error = nil;
 //        MTLRenderPipelineDescriptor* d = [[MTLRenderPipelineDescriptor alloc] init];
 //        d.sampleCount = 4;
-//        d.vertexFunction = [library newFunctionWithName:@"vertexShader"];
+//        d.vertexFunction = [library newFunctionWithName:@"simpleTriangle"];
 //        d.fragmentFunction = [library newFunctionWithName:@"fragmentShader"];
 //        d.colorAttachments[0].pixelFormat = view.colorPixelFormat;
 //        d.depthAttachmentPixelFormat = view.depthStencilPixelFormat;
 //        shader = [device newRenderPipelineStateWithDescriptor:d error:&error];
+//        simd_float2 v[3] = {
+//            {-0.5f, -0.5f},
+//            { 0.5f, -0.5f},
+//            {  0.f, 0.5f}
+//        };
+//        uint16_t t[3] = { 0,1,2 };
+//        v0 = [device newBufferWithBytes:v length:3*sizeof(simd_float2) options:MTLResourceStorageModeManaged];
+//        t0 = [device newBufferWithBytes:t length:3*sizeof(uint16_t) options:MTLResourceStorageModeManaged];
 //
 //        if (!shader)
 //        {
 //            NSLog(@"Failed to created pipeline state, error %@", error);
 //        }
+        [self mtkView:view drawableSizeWillChange:view.drawableSize];
     }
     
     return self;
@@ -60,7 +71,9 @@
 //
 //        id <MTLRenderCommandEncoder> encoder = [buffer renderCommandEncoderWithDescriptor:rpd];
 //        [encoder setRenderPipelineState:shader];
-//        [encoder drawPrimitives:MTLPrimitiveTypeTriangle vertexStart:0 vertexCount:3];
+//        [encoder setVertexBuffer:v0 offset:0 atIndex:0];
+//        [encoder drawIndexedPrimitives:MTLPrimitiveTypeTriangle indexCount:3 indexType:MTLIndexTypeUInt16
+//                           indexBuffer:t0 indexBufferOffset:0];
 //        [encoder endEncoding];
 //        [buffer presentDrawable:view.currentDrawable atTime:target];
 //        [buffer commit];

@@ -155,7 +155,6 @@ private:
     unsigned long length_ = 0;
     ResourceOptions mode_ = Shared;
     Buffer(void*& p, void* contents, unsigned long size, ResourceOptions mode) : MetalObject(p), raw_(contents), length_(size), mode_(mode) {
-        p = nullptr;
     }
 public:
     friend class Metal_API;
@@ -164,6 +163,7 @@ public:
     Buffer ( Buffer &&other ) noexcept : MetalObject(std::move(other)) {
         raw_ = other.raw_;
         mode_ = other.mode_;
+        length_ = other.length_;
         other.raw_ = nullptr;
         other.length_ = 0;
     }
@@ -173,6 +173,7 @@ public:
         _ptr = other._ptr;
         raw_ = other.raw_;
         mode_ = other.mode_;
+        length_ = other.length_;
         other.raw_ = nullptr;
         other._ptr = nullptr;
         other.length_ = 0;

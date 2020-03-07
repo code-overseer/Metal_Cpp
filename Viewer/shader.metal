@@ -1,25 +1,60 @@
 #include <metal_stdlib>
-#include <simd/simd.h>
+
 using namespace metal;
 
-struct VertexOut {
-    simd_float4 position [[position]];
+struct Uniform {
+    float4x4 view;
+    float4x4 projection;
 };
 
-constant constexpr static const float4 VERTS[3]
+struct VertexOut {
+    float4 position [[position]];
+    float4 color;
+};
+
+constant constexpr static const float4 TRI[3]
 {
     {-0.5f, -0.5f, 0.f, 1.f},
     { 0.5f, -0.5f, 0.f, 1.f},
     {  0.f, 0.5f, 0.f, 1.f}
 };
 
-vertex VertexOut vertexShader(ushort vid [[vertex_id]]) {
+constant constexpr static const float4 COL[3]
+{
+    {1.f, 0.f, 0.f, 1.f},
+    { 0.f, 1.f, 0.f, 1.f},
+    {  0.f, 0.f, 1.f, 1.f}
+};
+
+vertex VertexOut helloTriangle(const uint vid [[vertex_id]]) {
     VertexOut output;
-    output.position = VERTS[vid];
+    output.position = TRI[vid];
+    output.color = COL[vid];
+    return output;
+}
+
+vertex VertexOut simpleTriangle(constant const float2* verts [[buffer(0)]], const ushort vid [[vertex_id]]) {
+    VertexOut output;
+    output.position = TRI[vid];
+    output.color = COL[vid];
+    return output;
+}
+
+vertex VertexOut vertexShader(constant const float2* verts [[buffer(0)]],
+                              constant const float4x4* ltw [[buffer(1)]],
+                              constant const Uniform& cam [[buffer(2)]],
+                              const uint vid [[vertex_id]],
+                              const uint iid [[instance_id]]) {
+    float4x4 pv = cam.projection * cam.view;
+    float4 vert = float4(verts[vid], 0, 1);
+    VertexOut output;
+    output.position = pv * ltw[iid] * vert;
+    output.position = pv * vert;
+    output.color = float4(1,0,0,1);
     
     return output;
 }
 
 fragment float4 fragmentShader(VertexOut in [[stage_in]]) {
-    return float4(1,0,0,1);
+    return in.color;
 }

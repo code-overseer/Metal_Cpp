@@ -11,10 +11,27 @@
 }
 
 - (void)applicationWillFinishLaunching:(NSNotification *)notification {
-    id menuNib =
-    [[NSNib alloc] initWithNibNamed:@"MainMenu" bundle:[NSBundle mainBundle]];
+//    id menuNib =
+//    [[NSNib alloc] initWithNibNamed:@"MainMenu" bundle:[NSBundle mainBundle]];
+//    [menuNib instantiateWithOwner:NSApp topLevelObjects:nil];
+    @autoreleasepool {
+        id quitMenuItem = [[NSMenuItem alloc] initWithTitle:@"Quit Viewer"
+                                                     action:@selector(terminate:)
+                                              keyEquivalent:@"q"];
+        
+        id appMenu = [[NSMenu alloc] init];
+        [appMenu addItem:quitMenuItem];
+        
+
+        id appMenuItem = [[NSMenuItem alloc] init];
+        [appMenuItem setSubmenu:appMenu];
+        
+        id mainMenu = [[NSMenu alloc] init];
+        [mainMenu addItem:appMenuItem];
+        
+        [NSApp setMainMenu:mainMenu];
+    }
     
-    [menuNib instantiateWithOwner:NSApp topLevelObjects:nil];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
@@ -22,10 +39,14 @@
     [NSApp activateIgnoringOtherApps:YES];
     [NSApp setActivationPolicy:NSApplicationActivationPolicyRegular];
     NSWindowStyleMask mask = NSWindowStyleMaskClosable | NSWindowStyleMaskTitled | NSWindowStyleMaskResizable;
-    AppWindow* window = [[AppWindow alloc] initWithContentRect:CGRectMake(120, 120, 720, 480) styleMask:mask backing:NSBackingStoreBuffered defer:NO];
-    _view =[[MTKView alloc] init];
-    [window setContentView:_view];
-    _renderer = [[ViewportDelegate alloc] initWithMetalKitView:_view];
+    @autoreleasepool {
+        AppWindow* window = [[AppWindow alloc] initWithContentRect:CGRectMake(120, 120, 720, 480)
+                                                         styleMask:mask
+                                                           backing:NSBackingStoreBuffered
+                                                             defer:NO];
+        _view = [[MTKView alloc] init];
+        [window setContentView:_view];
+        _renderer = [[ViewportDelegate alloc] initWithMetalKitView:_view];
     
     //    [NSEvent addLocalMonitorForEventsMatchingMask:NSEventMaskScrollWheel handler:^NSEvent * _Nullable(NSEvent * event) {
     //        float f = cam.zoom() + simd_clamp(-event.scrollingDeltaY/100, -1, 1);
@@ -38,6 +59,7 @@
 //        cam.zoom(simd_clamp(f, 0.25f, 200.f));
 //        return nil;
 //    }];
+    }
 }
 -(BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)app {
     return YES;
