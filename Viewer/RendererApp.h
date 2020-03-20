@@ -6,7 +6,8 @@
 
 @property BOOL shouldKeepRunning;
 - (void) setup;
-- (void) update;
+- (void) updateView;
+- (void) processNextEvent;
 
 
 @end

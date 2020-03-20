@@ -9,6 +9,7 @@ int main(int argc, const char * argv[]) {
 
     CFTimeInterval startTime = CACurrentMediaTime();
     while (u) {
+        process_event(&u);
         if (CACurrentMediaTime() - startTime < 0.016667) continue;
         startTime = CACurrentMediaTime();
         update_view(&u);

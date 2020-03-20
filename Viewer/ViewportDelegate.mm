@@ -79,6 +79,7 @@
 //        [buffer commit];
 //    }
     mtl_cpp::Metal_API::draw((__bridge void*)(view));
+    
 }
 
 - (void) mtkView:(nonnull MTKView *)view drawableSizeWillChange:(CGSize)size {
